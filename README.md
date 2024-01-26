@@ -1,23 +1,19 @@
-# manageR - manage your institution the correct way! [![Ruby](https://github.com/Shannarra/manageR/actions/workflows/ruby.yml/badge.svg?branch=master)](https://github.com/Shannarra/manageR/actions/workflows/ruby.yml)
-This app demonstrates Rails 7 with PostgreSQL, import maps, turbo, stimulus, bootstrap and hotwire, all running in Docker.  
-You can also bootstrap the application with authentication frameworks like Devise in order to ease your work. 
+# manageR™ - manage your institution the correct way! [![Ruby](https://github.com/Shannarra/manageR/actions/workflows/ruby.yml/badge.svg?branch=master)](https://github.com/Shannarra/manageR/actions/workflows/ruby.yml)
+This app is a comprehensive school management system using Rails 7 with PostgreSQL, import maps, turbo, stimulus, bootstrap and hotwire, all running in Docker. The base template of the application can be found at [Shannarra/rails7template](https://github.com/Shannarra/rails7template)
 
 ## Features
-* Rails 7
-* Ruby 3
-* Bootstrap
-* Dockerfile and Docker Compose configuration
-* PostgreSQL database
-* Redis
-* GitHub Actions for
-  * tests
-  * Rubocop for linting
-  * Security checks with [Brakeman](https://github.com/presidentbeef/brakeman) and [bundler-audit](https://github.com/rubysec/bundler-audit)
-* Dependabot for automated updates
-
-#### Optional features:
-* Authentication with Devise
-  * See [Devise setup](#devise-setup) for more info
+- [x] Rails 7
+- [x] Ruby 3
+- [x] Bootstrap
+- [x] Dockerfile and Docker Compose configuration
+- [x] PostgreSQL database
+- [x] Redis
+- [x] GitHub Actions for
+  - [x] tests
+  - [x] Rubocop for linting
+  - [x] Security checks with [Brakeman](https://github.com/presidentbeef/brakeman) and [bundler-audit](https://github.com/rubysec/bundler-audit)
+- [x] Dependabot for automated updates
+- [x] Devise for authentication
 
 ## Requirements
 
@@ -31,43 +27,24 @@ $ docker compose version
 Docker Compose version v2.20.2
 ```
 
-## Initial setup
+## Development setup
+> Please, make sure that you have turned your postgresql service off or you will be greeted with an error message saying that port 5432 is taken.
+You can do that by running the command `sudo systemctl stop postgresql`
 
 You can just run the [startup.sh](https://github.com/Shannarra/rails7template/edit/master/startup.sh) script:
 ```console
-sh ./startup.sh
+sh ./startup.sh --run
 ```
-This will bootstrap a Rails 7 application that has some sample data but misses a lot of features, for example, it has no authentication.
+This will bootstrap the application with sample data and profiles with different authorizations. Please, note that __*Registering endpoints are disabled intentionally*__ (see [Usage](#Usage))
 
-If you want to have built-in authentication with Devise you can do the following:
-
-<details>
-<summary> <h3>Devise setup</h3> (optional)</summary>
-Setting the application up to work with Devise is very straightforward, just a single command:
-
+## Usage
+#### Running the app
 ```console
-sh startup.sh --devise user
-```
-
-In this case, the application will be created with authentication mechanism for a model called "User".  
-The given model will be created, migrated and integrated with the application upon startup.
-</details>
-
-### Extras
-Using the `startup.sh` script, you can skip the next step and make it so the application starts immediately after it has been built:
-```console
-sh startup.sh --run # -r works as well :) 
-```
-
-If you want to learn more about this script you can just call the `--help` option.
-
-## Running the Rails app
-```console
-docker compose up
+docker compose up --build
 ```
 Then just navigate to http://localhost:3000
 
-## Running the Rails console
+#### Running the Rails console
 When the app is already running with `docker-compose` up, attach to the container:
 ```console
 docker compose exec web bin/rails c
@@ -78,38 +55,29 @@ When no container running yet, start up a new one:
 docker compose run --rm web bin/rails c
 ```
 
-## Running tests
+#### Running tests
 ```console
 docker compose run --rm web bin/rspec
 ```
 
-## Time localization
-If you want to change the timezone to your specific locale you can do this very simply, just change the TIMEZONE variable in the .env file:
-
-```console
-# TODO: change to CET, EET or wherever you live
-TIMEZONE=UTC
-```
-
-## Updating gems
+#### Updating gems
 ```console
 docker compose run --rm web bundle
 docker compose up --build
 ```
 
-## Production build
-
+#### Production build
 ```console
 docker build -f production.Dockerfile .
 ```
 
-## Deployment
 
+## Deployment
 This app can be hosted wherever Ruby is supported and PostgreSQL databases can be provisioned.
 
 #### Render
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=[https://github.com/Shannarra/rails7template](https://github.com/Shannarra/rails7template))
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=[https://github.com/Shannarra/manageR](https://github.com/Shannarra/manageR))
 
 NOTE: You will need to generate a production secret with `bin/rails secret` and set it as the `SECRET_KEY_BASE` environment variable.
 

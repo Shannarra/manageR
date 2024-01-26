@@ -29,3 +29,26 @@
     max-height: 200px;
     cursor: pointer;
 }
+
+$gradient: linear-gradient(rgb(85, 88, 218) 0%, rgb(95, 209, 249) 200%);
+
+.sidebar-partial {
+    background: $gradient;
+}
+
+.sidebar-partial-link {
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+
+    &:hover {
+        color:  rgb(95, 209, 249);        
+    }
+    
+    &--btn {
+        @extend .sidebar-partial-link;
+        border: none;
+        background: transparent;
+        padding-left: 0 !important;
+    }
+}
