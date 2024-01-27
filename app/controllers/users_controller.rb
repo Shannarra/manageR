@@ -55,6 +55,8 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    authorize @user
+       
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -93,8 +95,7 @@ class UsersController < ApplicationController
       end.to_a
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
+    def user_sanitized_params
       params.require(:user).permit(
         :access_type,
         :name,
@@ -103,7 +104,21 @@ class UsersController < ApplicationController
         :gender,
         :phone,
         :image,
-        :image_cache
+        :image_cache,
+        :password,
+        :password_confirmation,
+        :current_password,
       )
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def user_params
+      user_sanitized_params
+        .to_h
+        .except(
+          :password,
+          :password_confirmation,
+          :current_password
+        )
     end
 end
