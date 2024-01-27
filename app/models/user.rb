@@ -16,4 +16,8 @@ class User < ApplicationRecord
        }
 
   validates :access_type, presence: true, inclusion: { in: :access_type }
+
+  def has_elevated_privileges?
+    admin? || director?
+  end
 end

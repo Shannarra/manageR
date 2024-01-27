@@ -29,24 +29,28 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+    authorize current_user
     @user = User.new
   end
 
   # GET /users/1/edit
   def edit
+    authorize @user
+
+    redirect_to edit_user_registration_path if @user == current_user
   end
 
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
+    @user = User.create(user_sanitized_params)
 
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
-        format.html { render :new }
+        format.html { render :new, notice: @user.errors }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -55,8 +59,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    # TODO:
-    #authorize @user
+    authorize @user
 
     respond_to do |format|
       if @user.update(user_params)

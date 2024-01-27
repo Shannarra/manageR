@@ -66,13 +66,14 @@ gem 'devise'
 
 gem 'font-awesome-rails', '~> 4.7.0'
 
+gem 'pundit'
+
 group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "pry"
   gem "rspec-rails"
   gem "rubocop-rspec"
-
   gem "rails_live_reload"
 end
 

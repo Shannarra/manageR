@@ -24,6 +24,6 @@ export default class extends Controller {
             default: tooltip = "I have no idea what happened. Check the JS controller."; break;
         }
         
-        this.outputTarget.textContent = tooltip;
+        this.outputTarget.text = tooltip;
     }
 }
