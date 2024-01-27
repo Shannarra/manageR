@@ -72,9 +72,9 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "pry"
+  gem "rails_live_reload"
   gem "rspec-rails"
   gem "rubocop-rspec"
-  gem "rails_live_reload"
 end
 
 group :development do

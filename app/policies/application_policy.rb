@@ -15,7 +15,7 @@ class ApplicationPolicy
   def same_account?
     user == record
   end
-  
+
   def index?
     false
   end

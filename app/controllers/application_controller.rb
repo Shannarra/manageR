@@ -2,7 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include Pundit
-  
+
   protect_from_forgery with: :exception
   before_action :authenticate_user!
 
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   def handle_exception(error)
     raise unless error.is_a?(Pundit::NotAuthorizedError)
-    
+
     respond_to do |format|
       format.html { redirect_to root_url, notice: "You don't have access to this page." }
       format.json { head :no_content, status: :access_denied }
