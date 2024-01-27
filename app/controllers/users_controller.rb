@@ -19,6 +19,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def manage
+    if params[:search]
+      results_for_search
+    else
+      @users = User.all
+    end
+  end
+
   # GET /users/new
   def new
     @user = User.new
@@ -79,9 +87,16 @@ class UsersController < ApplicationController
       end
     end
 
+    def results_for_search
+      @users = User.select do |user|
+        user.name.downcase.include? params[:search]
+      end.to_a
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(
+        :access_type,
         :name,
         :email,
         :password,

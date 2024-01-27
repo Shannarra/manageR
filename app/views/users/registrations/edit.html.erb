@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="flex-nowrap">
-    <div class="col col-md-8 p-5 mx-auto">
+    <div class="col col-md-8 p-5 mx-auto" data-controller="form-element" data-form-controller-action="click->setAccessTypeTooltop">
       <h2 class='d-flex justify-content-center'>  Edit Profile</h2>
 
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
@@ -17,6 +17,17 @@
           <%= f.email_field :email, class: 'form-control col-md-4', autofocus: true, autocomplete: "email" %>
         </div>
       </div>
+
+      <% if can_change_access? %>
+      <div class="row">
+        <div class="form-group col-md pt-5">
+          <%= f.select :access_type, User.access_types.keys, { include_blank: true }, data: { target: "form-element.access_type", action: "click->form-element#setAccessTypeTooltip" }, class: 'form-control col-md-4' %>
+        </div>
+        
+        <div class="form-group col-md pt-5" data-form-element-target="output" >
+        </div>
+      </div>
+      <% end %>
 
       <div class="row">
         <div class="form-group col-md pt-4">

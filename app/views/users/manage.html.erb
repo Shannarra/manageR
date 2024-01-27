@@ -1,0 +1,42 @@
+<h1>Manage Users 
+  <button class="btn btn-success">+ Add new user(s)</button>
+</h1>
+
+<div class="row py-3">
+    <%= form_tag(manage_path, method: :get) do %>
+    <div class="row">
+      <div class="form-group col-md">
+        <%= label_tag :search, "Search for user by name", class: 'fs-5 col-md-4' %>
+        <%= text_field_tag(:search, params[:search], maxlength: 20, class: 'form-control col-md-4', data: { target: "manage.searchbar", action: "input->runSearch"}) %>
+      </div>
+      <%= submit_tag("Search!", class: 'btn btn-primary col-md-4', data: { target: "manage.btn" }) %>
+    </div>
+  <% end %>
+</div>
+
+<% if @users.count > 0 %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover" >
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">User type</th>
+      </tr>
+    </thead>
+    <% users_visible_to_me.each do |user| %>
+    <tr class="table-row" scope="row">
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.access_type %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+<% else %>
+<div class="row">
+  <div class="mx-auto text-center pt-5">
+    <h1>No matches found for <%= params[:search] %></h1>
+  </div>
+</div>
+<% end %>
