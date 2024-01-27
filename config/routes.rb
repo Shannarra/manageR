@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'my_profile', :to => 'users#my_profile'
   get 'manage', :to => 'users#manage'
 
-  
+
   get 'welcome/index'
 
   root 'welcome#index'
