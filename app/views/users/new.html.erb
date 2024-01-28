@@ -2,30 +2,33 @@
   <div class="flex-nowrap">
     <div class="col col-md-8 p-5 mx-auto" data-controller="form-element" data-form-controller-action="click->setAccessTypeTooltop">
       <h2 class='d-flex justify-content-center'> Create new user profile</h2>
-      <%= form_for(:user, url: create_user_path) do |f| %>
+      <div class="text-danger h5">
+        <%= alert %>
+      </div>
+      <%= form_for(@user, url: create_user_path) do |f| %>
         <div class="row">
           <div class="form-group col-md pt-5">
             <%= f.label :name %><br />
-            <%= f.text_field :name, class: 'form-control col-md-4', autofocus: true, autocomplete: "name" %>
+            <%= f.text_field :name, class: 'form-control col-md-4', autofocus: true, autocomplete: "name", required: true %>
           </div>
           
           <div class="form-group col-md pt-5">
             <%= f.label :email %><br />
-            <%= f.email_field :email, class: 'form-control col-md-4', autofocus: true, autocomplete: "email" %>
+            <%= f.email_field :email, class: 'form-control col-md-4', autofocus: true, autocomplete: "email", required: true %>
           </div>
         </div>
 
         <div class="row">
           <div class="form-group col-md pt-4">
             <%= f.label :password %>
-            <%= f.password_field :password, class: 'form-control', autocomplete: "new-password" %>
+            <%= f.password_field :password, class: 'form-control', autocomplete: "new-password", required: true %>
             <% if @minimum_password_length %>
             <em class='text-muted'><%= @minimum_password_length %> characters minimum</em>
             <% end %>
           </div>
 
           <div class="form-group col-md pt-5">
-            <%= f.select :access_type, User.access_types.keys, { include_blank: true }, data: { target: "form-element.access_type", action: "click->form-element#setAccessTypeTooltip" }, class: 'form-control col-md-4' %>
+            <%= f.select :access_type, user_access_visible_to_me, { include_blank: true }, data: { target: "form-element.access_type", action: "click->form-element#setAccessTypeTooltip" }, class: 'form-control col-md-4', required: true %>
           </div>
         </div>
 
