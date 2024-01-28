@@ -36,11 +36,13 @@
           </li>
         </ul>
       </li>
+      <% if current_user.has_elevated_privileges? %>
       <li>
         <%= link_to manage_path, {class: "nav-link px-0 align-middle sidebar-partial-link"} do%>
           <%= fa_icon('cog') %> Users management
         <% end %>
       </li>
+      <% end %>
     </ul>
     <hr>
 
