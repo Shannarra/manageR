@@ -43,7 +43,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.create(user_sanitized_params)
+    @user = User.create(user_registration_sanitized_params)
 
     respond_to do |format|
       if @user.save
@@ -99,7 +99,7 @@ class UsersController < ApplicationController
       end.to_a
     end
 
-    def user_sanitized_params
+    def user_registration_sanitized_params
       params.require(:user).permit(
         :access_type,
         :name,
@@ -117,7 +117,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      user_sanitized_params
+      user_registration_sanitized_params
         .to_h
         .except(
           :password,
