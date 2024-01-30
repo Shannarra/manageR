@@ -68,6 +68,8 @@ gem 'font-awesome-rails', '~> 4.7.0'
 
 gem 'pundit'
 
+gem 'kaminari'
+
 group :development, :test do
   gem "factory_bot_rails"
   gem "faker"

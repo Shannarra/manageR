@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from Exception, with: :handle_exception
 
+  DEFAULT_PER_PAGE = 15
+
   protected
   USER_ADDITIONAL_ATTRIBUTES = %i[access_type name phone address image]
 

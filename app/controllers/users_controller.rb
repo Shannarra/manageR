@@ -19,12 +19,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def my_access
+    User.access_visible_to(current_user)
+  end
+
   def manage
-    if params[:search]
-      results_for_search
-    else
-      @users = User.all
-    end
+    search_result = results_for_search
+
+    users = User.where(id: search_result)
+              .users_visible_to_me(my_access)
+
+    @users = users
+               .page(params[:page])
+               .per(params[:per_page] || DEFAULT_PER_PAGE)
   end
 
   # GET /users/new
@@ -47,7 +54,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to manage_path, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { redirect_to new_user_url, alert: @user.errors.map(&:full_message).join("\n") }
@@ -94,9 +101,11 @@ class UsersController < ApplicationController
     end
 
     def results_for_search
-      @users = User.select do |user|
-        user.name.downcase.include? params[:search]
-      end.to_a
+      result = User.all.map do |user|
+        user.id if user.name.downcase.include? params[:search] || ""
+      end
+
+      result.empty? ? User.all : result
     end
 
     def user_registration_sanitized_params

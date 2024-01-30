@@ -15,14 +15,15 @@ This app is a comprehensive school management system using Rails 7 with PostgreS
 - [x] Dependabot for automated updates
 - [x] Devise for authentication
 - [x] Different user access types (based on profile)
-- [~] *IN PROGRESS* Authorization checks using Pundit
-- [ ] Admin panel and privileges
+- [x] Authorization checks using Pundit
+- [ ] *IN PROGRESS* Admin panel and privileges
 - [ ] Institutions
 - [ ] Classses
+- [ ] Strudy Subjects
 - [ ] Attendance tracking
 - [ ] Exams (with types: physical, online) and scheduling in the future
 - [ ] Grades
-- [ ] Reports for class
+- [ ] Reports for a specific class or all classes (in PDF, CSV), including top-graded students, average grades for subject, etc.
 
 ## Requirements
 
