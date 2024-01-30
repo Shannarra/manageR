@@ -102,7 +102,7 @@ class UsersController < ApplicationController
 
     def results_for_search
       result = User.all.map do |user|
-        user.id if user.name.downcase.include?(params[:search]) || ""
+        user.id if user.name.downcase.include?(params[:search] || "")
       end
 
       result.empty? ? User.all : result
