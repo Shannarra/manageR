@@ -72,3 +72,4 @@ yarn-debug.log*
 /config/master.
 
 *.log
+./log/*
