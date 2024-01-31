@@ -22,18 +22,11 @@
           <%= fa_icon("users") %> <span class="ms-1 d-none d-sm-inline">Attendance</span>
         </a>
         <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+          <% 20.times do %>
           <li class="w-100">
             <a href="#" class="nav-link px-0 sidebar-partial-link"> <span class="d-none d-sm-inline">Class</span> 1</a>
           </li>
-          <li>
-            <a href="#" class="nav-link px-0 sidebar-partial-link"> <span class="d-none d-sm-inline">Class</span> 2</a>
-          </li>
-          <li>
-            <a href="#" class="nav-link px-0 sidebar-partial-link"> <span class="d-none d-sm-inline">Class</span> 3</a>
-          </li>
-          <li>
-            <a href="#" class="nav-link px-0 sidebar-partial-link"> <span class="d-none d-sm-inline">Class</span> 4</a>
-          </li>
+          <% end %>
         </ul>
       </li>
       <% if current_user.has_elevated_privileges? %>

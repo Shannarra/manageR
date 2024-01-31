@@ -1,23 +1,20 @@
-<div class="row py-3">
-  <h1>Manage Users
-    <% if current_user.has_elevated_privileges? %>
+<h1>Manage Users
+  <% if current_user.has_elevated_privileges? %>
     <%= link_to "+ Add new user(s)", new_user_path, class: 'btn btn-success' %>
-    <% end %>
-  </h1>
-  
-  <div class="">
-    <%= form_tag(manage_path, method: :get) do %>
-
-    <div class="form-group col-md">
-      <%= label_tag :search, "Search for user by name", class: 'fs-5 col-md-4' %>
-      <%= text_field_tag(:search, params[:search], maxlength: 20, class: 'form-control col-md-4', data: { target: "manage.searchbar", action: "input->runSearch"}) %>
-    </div>
-    <%= submit_tag("Search!", class: 'btn btn-primary col-md-4', data: { target: "manage.btn" }) %>
-  </div>
   <% end %>
-  
-</div>
+</h1>
 
+<div class="row py-3">
+    <%= form_tag(manage_path, method: :get) do %>
+    <div class="row">
+      <div class="form-group col-md">
+        <%= label_tag :search, "Search for user by name", class: 'fs-5 col-md-4' %>
+        <%= text_field_tag(:search, params[:search], maxlength: 20, class: 'form-control col-md-4', data: { target: "manage.searchbar", action: "input->runSearch"}) %>
+      </div>
+      <%= submit_tag("Search!", class: 'btn btn-primary col-md-4', data: { target: "manage.btn" }) %>
+    </div>
+  <% end %>
+</div>
 
 <% if @users.count > 0 %>
   <div class="table-responsive">

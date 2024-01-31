@@ -24,14 +24,13 @@ class UsersController < ApplicationController
   end
 
   def manage
-    search_result = results_for_search
+    name = params[:search] || ""
 
-    users = User.where(id: search_result)
+    @users = User
+              .where('name ilike ?', "%#{name}%")
               .users_visible_to_me(my_access)
-
-    @users = users
-               .page(params[:page])
-               .per(params[:per_page] || DEFAULT_PER_PAGE)
+              .page(params[:page])
+              .per(params[:per_page] || DEFAULT_PER_PAGE)
   end
 
   # GET /users/new
@@ -101,11 +100,6 @@ class UsersController < ApplicationController
     end
 
     def results_for_search
-      result = User.all.map do |user|
-        user.id if user.name.downcase.include?(params[:search] || "")
-      end
-
-      result.empty? ? User.all : result
     end
 
     def user_registration_sanitized_params
