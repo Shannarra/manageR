@@ -2,14 +2,14 @@ AdminUser.create!(
   name: 'Petar Angelov',
   email: 'admin@example.com',
   password: '123456',
-  access_type: 5  
+  access_type: 5
 )
 
 User.create!(
   name: 'Petar Angelov',
   email: 'admin@example.com',
   password: '123456',
-  access_type: 5  
+  access_type: 5
 )
 
 100.times do

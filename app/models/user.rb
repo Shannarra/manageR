@@ -14,7 +14,7 @@ class User < ApplicationRecord
        }
 
   mount_uploader :image, ImageUploader
-  
+
   validates :access_type, presence: true, inclusion: { in: :access_type }
 
   scope :users_visible_to_me, ->(access_types) { where(access_type: access_types)}
