@@ -30,13 +30,19 @@
     cursor: pointer;
 }
 
-$gradient: linear-gradient(rgb(85, 88, 218) 0%, rgb(95, 209, 249) 200%);
+$gradient-right: linear-gradient(to right, rgb(85, 88, 218) 20%, rgb(95, 209, 249) 200%);
+$gradient-down: linear-gradient(rgb(85, 88, 218) 0%, rgb(95, 209, 249) 200%);
 
-.sidebar-partial {
-    background: $gradient;
+
+.bg-navigation {
+    background: $gradient-right;
 }
 
-.sidebar-partial-link {
+.sidebar-partial {
+    background: $gradient-down;
+}
+
+.partial-link {
     font-size: 20px;
     text-decoration: none;
     color: white;
@@ -46,9 +52,13 @@ $gradient: linear-gradient(rgb(85, 88, 218) 0%, rgb(95, 209, 249) 200%);
     }
     
     &--btn {
-        @extend .sidebar-partial-link;
+        @extend .partial-link;
         border: none;
         background: transparent;
         padding-left: 0 !important;
     }
+}
+
+.sidebar-partial-link {
+    @extend .partial-link;
 }
