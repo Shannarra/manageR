@@ -41,7 +41,7 @@
 
     <div class="pb-4">
       <a href="#profileMenu" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="collapse" aria-expanded="true">
-        <%= image_tag(current_user&.image || "https://github.com/mdo.png", {alt: 'image', width: '30', height: '30', class: 'rounded-circle'}) %>
+        <%= image_tag(current_user&.image.url || "https://github.com/mdo.png", {alt: 'image', width: '30', height: '30', class: 'rounded-circle'}) %>
         <span class="d-none d-sm-inline mx-1 fs-5"><%= current_user&.name || "Username" %></span>
       </a>
       <ul class="collapse nav flex-column ms-1" id="profileMenu" data-bs-parent="#menu">
