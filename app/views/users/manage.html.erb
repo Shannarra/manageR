@@ -1,6 +1,7 @@
 <h1>Manage Users
   <% if current_user.has_elevated_privileges? %>
     <%= link_to "+ Add new user(s)", new_user_path, class: 'btn btn-success' %>
+    <%= link_to "Go to users administration", admin_users_path, class: 'btn btn-primary' %>
   <% end %>
 </h1>
 

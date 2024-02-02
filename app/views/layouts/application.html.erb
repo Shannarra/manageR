@@ -13,13 +13,11 @@
   </head>
 
   <body>
-    <%= render 'partials/nav' %>
+    <% if current_user %>
+      <%= render 'partials/nav' %>
+    <% end %>
     <div class="container-fluid">
       <div class="row flex-nowrap">
-
-        <% if current_user %>
-          <%= render 'partials/sidebar' %>
-        <% end %>
         <div class="col p-3 ">
           <p class="notice"><%= notice %></p>
           <%= yield %>
