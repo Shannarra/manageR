@@ -16,8 +16,8 @@ This app is a comprehensive school management system using Rails 7 with PostgreS
 - [x] Devise for authentication
 - [x] Different user access types (based on profile)
 - [x] Authorization checks using Pundit
-- [ ] *IN PROGRESS* Admin panel and privileges
-- [ ] Institutions
+- [x] Admin panel and privileges
+- [ ] *IN PROGRESS* Institutions
 - [ ] Classses
 - [ ] Study Subjects
 - [ ] Attendance tracking
