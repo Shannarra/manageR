@@ -38,7 +38,12 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link dropdown-item text-danger' %></li>
+            
+            <li>
+              <a type="button" class="nav-link dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Sign out
+              </a>
+            </li>
           </ul>
         </li>
       </ul>

@@ -69,7 +69,13 @@
 
       <h3>Cancel my account</h3>
 
-      <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></div>
+      <div>
+        Unhappy?
+        <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          Delete my account
+        </a>
+
+      </div>
 
       <%= link_to "Back", :back %>
 
