@@ -73,3 +73,5 @@ yarn-debug.log*
 
 *.log
 ./log/*
+
+./public/uploads/*

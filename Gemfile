@@ -59,16 +59,26 @@ gem "bundler-audit"
 # Rubocop
 gem "rubocop-rails"
 
-# Javascript runtime using Node. Useful for Bootstrap.
+# Javascript runtime using Node. Useful for Bootstrap
 gem 'execjs'
 
+# Useful to bootstrap authentication. https://stackoverflow.com/a/42190260/11542917
 gem 'devise'
 
+# Allows for fa icons usage in views.
 gem 'font-awesome-rails', '~> 4.7.0'
 
+# Authorization helpers gem, makes it easy to authorize and redirect
 gem 'pundit'
 
+# Pagination of tables or huge content
 gem 'kaminari'
+
+# Admin panel pages
+gem 'activeadmin' # Remember to add '*= stub "active_admin" ' to application.scss to localy scope AA CSS from clashing with Bootstrap
+
+# File uploaders associated with models
+gem 'carrierwave'
 
 group :development, :test do
   gem "factory_bot_rails"
