@@ -3,13 +3,13 @@ ActiveAdmin.register User do
 
   # use the normal "new user" path instead
   actions :all, except: :new
-  
+
   controller do
     def csv_filename
       'Users.csv'
-    end    
+    end
   end
-  
+
   index do
     selectable_column
     id_column
@@ -23,7 +23,6 @@ ActiveAdmin.register User do
   filter :email
   filter :access_type
 
-  
   csv force_quotes: true, col_sep: ',' do
     column :id
     column :name

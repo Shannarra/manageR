@@ -59,6 +59,7 @@ node_modules/
 /public/packs
 /public/packs-test
 /public/assets
+/pubic/uploads
 
 # Ignore yarn files
 /yarn-error.log
@@ -74,4 +75,4 @@ yarn-debug.log*
 *.log
 ./log/*
 
-./public/uploads/*
+./public/uploads/

@@ -3,10 +3,10 @@ ActiveAdmin.register AdminUser do
 
   controller do
     def csv_filename
-     'Admin users.csv' 
+     'Admin users.csv'
     end
   end
-  
+
   index do
     selectable_column
     id_column
