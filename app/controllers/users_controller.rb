@@ -99,9 +99,6 @@ class UsersController < ApplicationController
       end
     end
 
-    def results_for_search
-    end
-
     def user_registration_sanitized_params
       params.require(:user).permit(
         :access_type,
