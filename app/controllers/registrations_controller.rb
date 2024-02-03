@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
   before_action :disable_registration!, only: %i[new create]
 
-  def nwe
+  def new
   end
 
   def create

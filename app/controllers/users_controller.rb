@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[show edit destroy]
+
+  before_action :check_for_current_user!, only: %i[my_profile verify_code]
 
   # GET /users
   # GET /users.json
@@ -13,14 +15,11 @@ class UsersController < ApplicationController
   end
 
   def my_profile
-    unless current_user
-      flash[:alert] = 'You need to be logged in to see your profile page!'
-      authenticate_user!
-    end
+    redirect_to verify_code_path if has_user_logged_in?
   end
 
-  def my_access
-    User.access_visible_to(current_user)
+  def verify_code
+    redirect_to current_user unless has_user_logged_in?
   end
 
   def manage
@@ -65,15 +64,24 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    @user = current_user
     authorize @user
 
     respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
+      # example code: LR9dWXG7Q0jYft6NsiZq
+      code = user_params[:institution_code]
+
+      if code != @user.institution.code
+        format.html { redirect_to verify_code_path, alert: 'Verification code does not match' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
+      else
+        if @user.update(user_params)
+          format.html { redirect_to @user, notice: 'Institution code was successfully verified.' }
+          format.json { render :show, status: :ok, location: @user }
+        else
+          format.html { render :edit }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -86,6 +94,15 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  protected
+  def has_user_logged_in?
+    current_user.institution_code.nil?
+  end
+
+  def my_access
+    User.access_visible_to(current_user)
   end
 
   private
@@ -109,6 +126,7 @@ class UsersController < ApplicationController
         :phone,
         :image,
         :image_cache,
+        :institution_code,
         :password,
         :password_confirmation,
         :current_password,
@@ -124,5 +142,12 @@ class UsersController < ApplicationController
           :password_confirmation,
           :current_password
         )
+    end
+
+    def check_for_current_user!
+      unless current_user
+        flash[:alert] = 'You need to be logged in to see your profile page!'
+        authenticate_user!
+      end
     end
 end

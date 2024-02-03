@@ -15,6 +15,7 @@ ActiveAdmin.register User do
     id_column
     column :name
     column :email
+    column :institution
     column :access_type
     column :address
   end
@@ -22,6 +23,7 @@ ActiveAdmin.register User do
   filter :name
   filter :email
   filter :access_type
+  filter :institution
 
   csv force_quotes: true, col_sep: ',' do
     column :id
