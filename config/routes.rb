@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :institutions
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -16,5 +15,9 @@ Rails.application.routes.draw do
   patch 'update_user', :to => 'users#update'
   post 'create_user', :to => 'users#create'
 
+  resources :institutions, only: %i[show]
+
   root 'users#my_profile'
+
+  match '*unmatched', to: 'application#action_not_found', via: :all
 end

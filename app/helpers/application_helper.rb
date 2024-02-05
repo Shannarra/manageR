@@ -16,4 +16,8 @@ module ApplicationHelper
       confirm: 'Sign me out',
     }
   end
+
+  def institution
+    current_user.institution
+  end
 end

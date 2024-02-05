@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
 
   DEFAULT_PER_PAGE = 15
 
+  def action_not_found
+    render file: "#{Rails.root}/public/404.html", status: :not_found
+  end
+
   protected
   USER_ADDITIONAL_ATTRIBUTES = %i[access_type name phone address image]
 

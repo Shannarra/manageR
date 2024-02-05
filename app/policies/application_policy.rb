@@ -8,7 +8,7 @@ class ApplicationPolicy
     @record = record
   end
 
-  def with_elevated_priviledges?
+  def with_elevated_privileges?
     user.has_elevated_privileges?
   end
 

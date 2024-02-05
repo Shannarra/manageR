@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link partial-link" aria-current="page" href="#">Home</a>
+          <%= link_to institution.name, institution_url(institution), class: "nav-link partial-link" %>
         </li>
         <li class="nav-item">
           <a class="nav-link partial-link" href="#">Link</a>
@@ -25,6 +25,16 @@
         </li>
       </ul>
       <ul class="navbar-nav mb-2 mb-lg-0">
+        <% if current_user.has_elevated_privileges? %>
+        <li class="nav-item dropdown">
+          <a class="nav-link partial-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin Actions
+          </a>
+          <ul class="dropdown-menu mx-2">
+            <li><%=link_to("Manage Users", manage_url, { class: "nav-link dropdown-item" }) %></li>
+          </ul>
+        </li>
+        <% end %>
         <li class="nav-item dropdown">
           <a class="nav-link partial-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <%= image_tag(current_user&.image.url || "https://github.com/mdo.png", {alt: 'image', width: '30', height: '30', class: 'rounded-circle'}) %>

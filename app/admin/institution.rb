@@ -18,6 +18,15 @@ ActiveAdmin.register Institution do
     end
   end
 
+  form do |f|
+    f.inputs do
+      f.input :name
+      f.input :location
+      f.input :code, input_html: { value: SecureRandom.alphanumeric(20) }
+    end
+    f.actions
+  end
+
   filter :name
   filter :location
 

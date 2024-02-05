@@ -15,7 +15,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    with_elevated_priviledges?
+    with_elevated_privileges?
   end
 
   def new?
@@ -23,7 +23,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    with_elevated_priviledges? ||
+    with_elevated_privileges? ||
       same_account?
   end
 

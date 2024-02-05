@@ -15,7 +15,8 @@ unless Rails.env.production?
   5.times do
     Institution.create!(
       name: Faker::University.name,
-      location: Faker::Address.street_address
+      location: Faker::Address.street_address,
+      code: SecureRandom.alphanumeric(20)
     )
   end
 
