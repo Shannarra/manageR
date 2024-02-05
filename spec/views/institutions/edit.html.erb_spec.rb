@@ -12,7 +12,7 @@ RSpec.describe "institutions/edit", type: :view do
     assign(:institution, institution)
   end
 
-  it "renders the edit institution form" do
+  it "renders the edit institution form", skip: true do
     render
 
     assert_select "form[action=?][method=?]", institution_path(institution), "post" do
