@@ -14,7 +14,7 @@ RSpec.describe AdminUser, type: :model do
       user = AdminUser.new(email: nil)
       expect(user).not_to be_valid
     end
-    
+
     it 'without an encrypted_password' do
       user = AdminUser.new(encrypted_password: nil)
       expect(user).not_to be_valid

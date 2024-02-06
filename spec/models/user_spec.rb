@@ -14,7 +14,7 @@ RSpec.describe User, type: :model do
       user = User.new(email: nil)
       expect(user).not_to be_valid
     end
-    
+
     it 'without an encrypted_password' do
       user = User.new(encrypted_password: nil)
       expect(user).not_to be_valid
@@ -23,6 +23,6 @@ RSpec.describe User, type: :model do
     it 'without an institution_id' do
       user = User.new(institution_id: nil)
       expect(user).not_to be_valid
-    end    
+    end
   end
 end
