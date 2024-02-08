@@ -7,7 +7,7 @@
 
 <div class="row py-3">
   <span>Find user by name</span>
-  <%= form_tag(manage_path, method: :get, class: 'd-flex') do %>
+  <%= form_tag(manage_users_path, method: :get, class: 'd-flex') do %>
       <%= text_field_tag(:search, params[:search], maxlength: 20, class: 'form-control me-2', data: { target: "manage.searchbar", action: "input->runSearch"}) %>
       <%= submit_tag("Search!", class: 'btn btn-success col-md-4', data: { target: "manage.btn" }) %>
   <% end %>

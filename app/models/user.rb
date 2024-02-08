@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :institution
+  belongs_to :i_class
 
   enum access_type: {
          admin: 5,
