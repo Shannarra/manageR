@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_03_112811) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_07_105546) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,6 +78,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_03_112811) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "i_classes", force: :cascade do |t|
+    t.string "name"
+    t.integer "year"
+    t.bigint "institution_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["institution_id"], name: "index_i_classes_on_institution_id"
+  end
+
   create_table "institutions", force: :cascade do |t|
     t.string "name"
     t.string "location"
@@ -101,12 +110,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_03_112811) do
     t.integer "access_type", default: 0
     t.bigint "institution_id", null: false
     t.string "institution_code"
+    t.bigint "i_class_id", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["i_class_id"], name: "index_users_on_i_class_id"
     t.index ["institution_id"], name: "index_users_on_institution_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "i_classes", "institutions"
+  add_foreign_key "users", "i_classes"
   add_foreign_key "users", "institutions"
 end

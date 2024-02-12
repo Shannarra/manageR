@@ -1,0 +1,9 @@
+<h1>New i class</h1>
+
+<%= render "form", i_class: @i_class %>
+
+<br>
+
+<div>
+  <%= link_to "Back to institution classes", classes_path(institution_id: current_user.institution_id) %>
+</div>
