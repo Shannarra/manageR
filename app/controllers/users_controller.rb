@@ -1,21 +1,19 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit destroy]
+  before_action :set_user, only: %i[show edit destroy update]
 
   before_action :check_for_current_user!, only: %i[my_profile verify_code]
 
   # GET /users
-  # GET /users.json
   def index
     @users = User.all
   end
 
   # GET /users/1
-  # GET /users/1.json
   def show
   end
 
   def my_profile
-    redirect_to verify_code_path if has_user_logged_in?
+    redirect_to verify_code_users_path if has_user_logged_in?
   end
 
   def verify_code
@@ -28,6 +26,7 @@ class UsersController < ApplicationController
     @users = User
               .where('name ilike ?', "%#{name}%")
               .users_visible_to_me(my_access)
+              .order(name: :asc)
               .page(params[:page])
               .per(params[:per_page] || DEFAULT_PER_PAGE)
   end
@@ -46,53 +45,45 @@ class UsersController < ApplicationController
   end
 
   # POST /users
-  # POST /users.json
   def create
     @user = User.create(user_registration_sanitized_params)
 
     respond_to do |format|
       if @user.save
         format.html { redirect_to manage_path, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
       else
         format.html { redirect_to new_user_url, alert: @user.errors.map(&:full_message).join("\n") }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
   def update
-    @user = current_user
     authorize @user
 
     respond_to do |format|
-      # example code: LR9dWXG7Q0jYft6NsiZq
-      code = user_params[:institution_code]
+      inputed_code = user_params[:institution_code]
+      valid_code = @user&.institution&.code
 
-      if code != @user.institution.code
-        format.html { redirect_to verify_code_path, alert: 'Verification code does not match' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+      if inputed_code != valid_code && @user == current_user
+        format.html { redirect_to verify_code_users_path, alert: "Verification code does not match with your institution" }
+      elsif @user.update(user_params)
+        updating_my_profile =  @user == current_user
+        path = updating_my_profile ? my_profile_users_path : manage_users_path
+        message = updating_my_profile ? 'Verification code successfully confirmed!' : 'User profile successfully updated!'
+
+        format.html { redirect_to path, notice: message }
       else
-        if @user.update(user_params)
-          format.html { redirect_to @user, notice: 'Institution code was successfully verified.' }
-          format.json { render :show, status: :ok, location: @user }
-        else
-          format.html { render :edit }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-        end
+        format.html { render :edit }
       end
     end
   end
 
   # DELETE /users/1
-  # DELETE /users/1.json
   def destroy
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -108,11 +99,12 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      id = params[:id]
+      return @user = current_user if id.nil?
+      @user = User.find(id)
     rescue ActiveRecord::RecordNotFound
       respond_to do |format|
         format.html { redirect_to users_url, notice: 'User does not exist.' }
-        format.json { head :no_content, status: :not_found }
       end
     end
 

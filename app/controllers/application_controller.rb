@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-  USER_ADDITIONAL_ATTRIBUTES = %i[access_type name phone address image]
+  USER_ADDITIONAL_ATTRIBUTES = %i[access_type name phone address image gender]
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: USER_ADDITIONAL_ATTRIBUTES)
