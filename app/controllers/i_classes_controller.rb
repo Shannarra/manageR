@@ -28,10 +28,8 @@ class IClassesController < ApplicationController
     respond_to do |format|
       if @i_class.save
         format.html { redirect_to class_url(id: @i_class), notice: "I class was successfully created." }
-        format.json { render :show, status: :created, location: @i_class }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @i_class.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -41,10 +39,8 @@ class IClassesController < ApplicationController
     respond_to do |format|
       if @i_class.update(i_class_params)
         format.html { redirect_to class_url(id: @i_class), notice: "I class was successfully updated." }
-        format.json { render :show, status: :ok, location: @i_class }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @i_class.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -55,7 +51,6 @@ class IClassesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to i_classes_url, notice: "I class was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 

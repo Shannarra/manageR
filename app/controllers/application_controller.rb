@@ -29,7 +29,6 @@ class ApplicationController < ActionController::Base
 
     respond_to do |format|
       format.html { redirect_to root_url, notice: "You don't have access to this page." }
-      format.json { head :no_content, status: :access_denied }
     end
   end
 end

@@ -1,17 +1,17 @@
-<div id="<%= dom_id i_class %>">
-  <p>
-    <strong>Name:</strong>
-    <%= i_class.name %>
-  </p>
-
-  <p>
-    <strong>Year:</strong>
-    <%= i_class.year %>
-  </p>
-
-  <p>
-    <strong>Institution:</strong>
-    <%= i_class.institution_id %>
-  </p>
-
+<div id="<%= dom_id i_class %>" class="flex flex-row">
+  <div class="row">
+    <div class="card col-md-3" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">
+          <%= i_class.name %>
+        </h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          Year: <%= i_class.year %>
+        </h6>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div>
+  </div>
 </div>

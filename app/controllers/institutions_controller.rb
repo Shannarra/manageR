@@ -15,7 +15,6 @@ class InstitutionsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     respond_to do |format|
       format.html { redirect_to root_url } #, notice: 'Institution does not exist or you don\'t have access.' }
-      format.json { head :no_content, status: :not_found }
     end
   end
 end
