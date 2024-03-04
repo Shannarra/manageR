@@ -16,7 +16,7 @@ class InstitutionsController < ApplicationController
                .page(params[:page])
                .per(params[:per_page] || DEFAULT_PER_PAGE)
   end
-  
+
   private
   def institution_params
     params.require(:institution).permit(:name, :location)

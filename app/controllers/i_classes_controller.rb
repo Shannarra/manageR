@@ -11,7 +11,7 @@ class IClassesController < ApplicationController
   def current_institution_id
     params[:institution_id] || current_user.institution.id
   end
-  
+
   def manage
     authorize current_user
 
@@ -24,7 +24,7 @@ class IClassesController < ApplicationController
                  .page(params[:page])
                  .per(params[:per_page] || DEFAULT_PER_PAGE)
   end
-  
+
   # GET /i_classes/1 or /i_classes/1.json
   def show
   end
