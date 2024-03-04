@@ -4,7 +4,7 @@ class SubjectsController < ApplicationController
   def possible_subjects
     IClass.includes(:subjects).find(params[:class_id]).subjects
   end
-  
+
   # GET /subjects or /subjects.json
   def index
     @subjects = possible_subjects
@@ -78,7 +78,7 @@ class SubjectsController < ApplicationController
       message = "Class not found for the current institution"
       message = "Subject does not exist for the class \"#{klass.name}\"." if klass
       url = klass.nil? ? root_url : class_url
-      
+
       respond_to do |format|
         format.html { redirect_to url, alert: message }
       end
