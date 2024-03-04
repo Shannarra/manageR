@@ -20,13 +20,13 @@
             <h6>My current class</h6>
             
             <li>
-              <%= link_to classes.first.name, class_path(id: classes.first, institution_id: institution), class: "dropdown-item" %>
+              <%= link_to classes.first&.name, class_path(id: classes.first&.id || 0, institution_id: institution), class: "dropdown-item" %>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
             <h6>Classes from <%= institution.name %></h6>
-            <% classes[1..].each do |klass| %>
+            <% classes[1..]&.each do |klass| %>
             <li>
               <%= link_to klass.name, class_path(id: klass, institution_id: institution), class: "dropdown-item" %>
             </li>
