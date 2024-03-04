@@ -6,7 +6,11 @@ Institution.create!(
 IClass.create!(
   name: Faker::Educator.course_name,
   year: (1..5).to_a.sample,
-  institution: Institution.first
+  institution: Institution.first,
+  description: Faker::Lorem.paragraphs(
+    number: rand(5..50),
+    supplemental: true,
+  ).join("\n")
 )
 
 User.create!(
@@ -30,7 +34,11 @@ unless Rails.env.production?
       IClass.create!(
         name: Faker::Educator.course_name,
         year: (1..5).to_a.sample,
-        institution: Institution.all.sample
+        institution: Institution.all.sample,
+        description: Faker::Lorem.paragraphs(
+          number: rand(5..50),
+          supplemental: true,
+        ).join("\n")
       )
     end
   end

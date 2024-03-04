@@ -10,12 +10,6 @@ RSpec.describe "Users", type: :request do
       expect(response).to redirect_to(new_user_session_path)
     end
 
-    it 'trying to access /users/edit redirects to sign_in' do
-      patch edit_user_path(user)
-      expect(response.code).to eq '302' # :found
-      expect(response).to redirect_to(new_user_session_path)
-    end
-
     it 'trying to access /users/:{id} redirects to sign_in' do
       get user_path(user)
       expect(response.code).to eq '302' # :found

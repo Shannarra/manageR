@@ -2,6 +2,14 @@
 
 <%= render @institution %>
 
-<% IClass.for(@institution).each do |klass| %>
-  <%= render klass %>
-<% end %>
+<div class="container-fluid">
+  <div class="flex-nowrap">
+    <h2 class='d-flex justify-content-center'>Classes for <%= @institution.name %></h2>
+    <h6 class='d-flex justify-content-center'>Location: <%= @institution.location %></h6>
+    <div class="col col-md-8 p-5 mx-auto">
+      <% IClass.for(@institution).each do |klass| %>
+      <%= render partial: 'class', locals: { klass: klass } %>
+      <% end %>
+    </div>
+  </div>
+</div>

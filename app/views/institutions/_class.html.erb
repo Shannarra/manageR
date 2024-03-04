@@ -1,0 +1,14 @@
+<div class="card mt-5">
+  <div class="card-header">
+    <h1><%= klass.name %></h1>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">
+      Study year <%= klass.year %>
+    </h5>
+    <p class="card-text">
+      <%= klass.description %>
+    </p>
+    <%= link_to 'Visit class', class_url(id: klass), class: "btn btn-primary" %>
+  </div>
+</div>

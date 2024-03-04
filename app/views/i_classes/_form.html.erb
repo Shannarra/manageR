@@ -1,32 +1,43 @@
-<%= form_with(model: i_class, url: classes_path(institution_id: current_user.institution.id)) do |form| %>
-  <% if i_class&.errors&.any? %>
+<div class="container-fluid">
+  <div class="flex-nowrap justify-content-center">
+    <%= form_with(model: klass, url: class_path) do |form| %>
+    <% if klass.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(i_class.errors.count, "error") %> prohibited this i_class from being saved:</h2>
+      <h2><%= pluralize(klass.errors.count, "error") %> prohibited this class from being saved:</h2>
 
       <ul>
-        <% i_class.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% klass.errors.each do |error| %>
+        <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
-  <% end %>
+    <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
+    <div class="row col-md px-5">
+      <div class="form-group col-md-6 pt-5">
+        <%= form.label :name %><br />
+        <%= form.text_field :name, class: 'form-control col-md-4', autofocus: true, autocomplete: "name", maxlength: 50 %>
+      </div>      
+      <div class="form-group col-md pt-5">
+        <%= form.label :year %><br />
+        <%= form.text_field :year, class: 'form-control col-md-4', autofocus: true, autocomplete: "year", maxlength: 50 %>
+      </div>      
+    </div>
 
-  <div>
-    <%= form.label :year, style: "display: block" %>
-    <%= form.number_field :year %>
-  </div>
+    <div class="row col-md px-5">
+      <div class="form-group col-md pt-5">
+        <%= form.label :description %><br />
+        <%= form.text_area :description, class: 'form-control textarea col-md-4 flex', autofocus: true, autocomplete: "description", rows: 20 %>
+      </div>      
+    </div>
 
-  <div>
-    <%= form.label :institution_id, style: "display: block" %>
-    <%= form.text_field :institution_id %>
-  </div>
+    <div class="row px-5 py-2">
+      <div class="actions form-group pt-4 col-md">
+        <%= form.submit "Update", class: 'btn btn-success w-100' %>
+      </div>
+    </div>
 
-  <div>
-    <%= form.submit %>
+    <% end %>
+
   </div>
-<% end %>
+</div>
