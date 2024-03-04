@@ -1,9 +1,4 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @i_class %>
-<div>
-  <%= link_to "Edit this i class", edit_class_path(@i_class, institution_id: @i_class.institution.id) %> |
-  <%= link_to "Back to i classes", classes_path(institution_id: @i_class.institution.id) %>
 
-  <%= button_to "Destroy this i class", classes_path(@i_class, institution_id: @i_class.institution.id), method: :delete %>
-</div>

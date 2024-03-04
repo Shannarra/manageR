@@ -20,4 +20,8 @@ module ApplicationHelper
   def institution
     current_user.institution
   end
+
+  def classes
+    IClass.for(institution)
+  end
 end

@@ -19,13 +19,24 @@ Rails.application.routes.draw do
   end
 
   resources :institutions, param: :institution_id do
+    collection do
+      get 'manage', :to => 'institutions#manage'
+    end
     member do
       get :show
-      resources :i_classes, path: 'classes', as: 'classes', param: :id
+      resources :i_classes, path: 'classes', as: 'classes', param: :id, only: :show do
+        collection do
+          get 'manage', :to => 'i_classes#manage'
+        end
+        member do
+          get :edit
+          patch :update
+        end
+      end
     end
   end
 
   root 'users#my_profile'
 
-  match '*unmatched', to: 'application#action_not_found', via: :all
+  #match '*unmatched', to: 'application#action_not_found', via: :all
 end

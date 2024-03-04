@@ -35,6 +35,10 @@ class UserPolicy < ApplicationPolicy
     false
   end
 
+  def manage?
+    with_elevated_privileges?
+  end
+
   class Scope
     def initialize(user, scope)
       @user = user

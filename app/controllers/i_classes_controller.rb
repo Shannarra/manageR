@@ -1,11 +1,28 @@
 class IClassesController < ApplicationController
-  before_action :set_i_class, only: %i[ show edit update destroy ]
+  before_action :set_i_class, only: %i[show edit update]
 
   # GET /i_classes or /i_classes.json
   def index
-    institution = params[:institution_id] || current_user.institution.id
+    institution = current_institution_id
     @i_classes = IClass.for(institution)
     authorize @i_classes
+  end
+
+  def current_institution_id
+    params[:institution_id] || current_user.institution.id
+  end
+
+  def manage
+    authorize current_user
+
+    name = params[:search] || ""
+
+    @klasses = IClass
+                 .where(institution_id: current_institution_id)
+                 .where('name ilike ?', "%#{name}%")
+                 .order(name: :asc)
+                 .page(params[:page])
+                 .per(params[:per_page] || DEFAULT_PER_PAGE)
   end
 
   # GET /i_classes/1 or /i_classes/1.json
@@ -19,6 +36,7 @@ class IClassesController < ApplicationController
 
   # GET /i_classes/1/edit
   def edit
+    authorize @i_class
   end
 
   # POST /i_classes or /i_classes.json

@@ -1,16 +1,20 @@
-<div id="<%= dom_id i_class %>" class="flex flex-row">
-  <div class="row">
-    <div class="card col-md-3" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">
-          <%= i_class.name %>
-        </h5>
-        <h6 class="card-subtitle mb-2 text-muted">
-          Year: <%= i_class.year %>
-        </h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+<div id="<%= dom_id i_class %>">
+  <div class="container-fluid">
+    <div class="flex-nowrap">
+      <h2 class='d-flex justify-content-center'><%= @i_class.name %></h2>
+      <h6 class='d-flex justify-content-center'>Study Year: <%= @i_class.year %></h6>
+      <div class="col col-md-8 p-5 mx-auto">
+        <div class="row">
+          <div class="form-group mt-5">
+            <%= @i_class.description %>
+          </div>
+
+          <% if current_user.has_elevated_privileges? %>
+          <div class="form-group mt-5">
+            <%= link_to 'Edit this class', edit_class_url(id: @i_class), class: 'btn btn-primary' %>
+          </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

@@ -1,0 +1,41 @@
+<h1>Manage Classes for <%= current_user.institution.name %>
+  <% if current_user.has_elevated_privileges? %>
+    <%= link_to "Go to #{current_user.institution.name} classes administration", admin_i_classes_path, class: 'btn btn-primary' %>
+  <% end %>
+</h1>
+
+<div class="row py-3">
+  <span>Find class by name</span>
+  <%= form_tag(manage_classes_path, method: :get, class: 'd-flex') do %>
+      <%= text_field_tag(:search, params[:search], maxlength: 20, class: 'form-control me-2', data: { target: "manage.searchbar", action: "input->runSearch"}) %>
+      <%= submit_tag("Search!", class: 'btn btn-success col-md-4', data: { target: "manage.btn" }) %>
+  <% end %>
+</div>
+
+<% if @klasses.count > 0 %>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover" >
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Year</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <% @klasses.each do |klass| %>
+      <tr class="table-row" scope="row">
+        <td><%= link_to klass.name, class_url(id: klass) %></td>
+        <td><%= klass.year %></td>
+        <td><%= link_to 'Edit this class', edit_class_url(id: klass) %></td>
+      </tr>
+      <% end %>
+    </table>
+    <%= paginate @klasses %>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="mx-auto text-center pt-5">
+      <h1>No matches found for <%= params[:search] %></h1>
+    </div>
+  </div>
+<% end %>
