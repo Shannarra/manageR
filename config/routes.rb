@@ -24,13 +24,15 @@ Rails.application.routes.draw do
     end
     member do
       get :show
-      resources :i_classes, path: 'classes', as: 'classes', param: :id, only: :show do
+      resources :i_classes, path: 'classes', as: 'classes', param: :class_id, only: :show do
         collection do
           get 'manage', :to => 'i_classes#manage'
         end
         member do
           get :edit
           patch :update
+
+          resources :subjects, path: 'subjects', as: 'subjects', param: :subject_id
         end
       end
     end

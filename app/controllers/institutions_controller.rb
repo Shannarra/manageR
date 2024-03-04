@@ -26,7 +26,7 @@ class InstitutionsController < ApplicationController
     @institution = Institution.find(params[:institution_id])
   rescue ActiveRecord::RecordNotFound
     respond_to do |format|
-      format.html { redirect_to root_url, notice: 'Institution does not exist or you don\'t have access.' }
+      format.html { redirect_to root_url, alert: 'Institution does not exist or you don\'t have access.' }
     end
   end
 end

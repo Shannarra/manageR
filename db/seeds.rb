@@ -22,6 +22,17 @@ User.create!(
   i_class: IClass.first,
 )
 
+Subject.create!(
+  name: 'Test subject',
+  year: (1..5).to_a.sample,
+  description: Faker::Lorem.paragraphs(
+    number: rand(5..50),
+    supplemental: true,
+  ).join("\n"),
+  user: User.first,
+  i_class: IClass.first
+)
+
 unless Rails.env.production?
   5.times do
     Institution.create!(
@@ -54,6 +65,19 @@ unless Rails.env.production?
       access_type: %w[student teacher].sample,
       institution: institution,
       i_class: IClass.for(institution).sample
+    )
+  end
+
+  100.times do
+    Subject.create!(
+      name: Faker::Educator.subject,
+      year: (1..5).to_a.sample,
+      description: Faker::Lorem.paragraphs(
+        number: rand(5..50),
+        supplemental: true,
+      ).join("\n"),
+      user: User.all.sample,
+      i_class: IClass.all.sample,
     )
   end
 

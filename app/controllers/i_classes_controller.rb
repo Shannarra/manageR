@@ -3,9 +3,11 @@ class IClassesController < ApplicationController
 
   # GET /i_classes or /i_classes.json
   def index
-    institution = current_institution_id
-    @i_classes = IClass.for(institution)
-    authorize @i_classes
+    @i_classes = possible_classes
+  end
+
+  def possible_classes
+    Institution.includes(:i_classes).find(current_institution_id).i_classes
   end
 
   def current_institution_id
@@ -75,7 +77,13 @@ class IClassesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_i_class
-      @i_class = IClass.find(params[:id])
+      institution = Institution.find(params[:institution_id])
+      class_id = params[:class_id]
+      @i_class = possible_classes.find(class_id)
+    rescue ActiveRecord::RecordNotFound
+      respond_to do |format|
+        format.html { redirect_to institution_url, alert: "Class does not exist for your institution." }
+      end
     end
 
     # Only allow a list of trusted parameters through.

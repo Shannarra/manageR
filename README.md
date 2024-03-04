@@ -18,8 +18,8 @@ This app is a comprehensive school management system using Rails 7 with PostgreS
 - [x] Authorization checks using Pundit
 - [x] Admin panel and privileges
 - [x] Institutions
-- [ ] *IN PROGRESS* Classses
-- [ ] Study Subjects
+- [x] Classses
+- [ ] *IN PROGRESS* Study Subjects
 - [ ] Attendance tracking
 - [ ] Exams (with types: physical, online) and scheduling in the future
 - [ ] Grades
@@ -30,6 +30,9 @@ This app is a comprehensive school management system using Rails 7 with PostgreS
 Please ensure you are using Docker Compose V2. This project relies on the `docker compose` command, not the previous `docker-compose` standalone program.
 
 https://docs.docker.com/compose/#compose-v2-and-the-new-docker-compose-command
+
+rails g scaffold Subject name:string year:integer description:string teacher:references klass:references
+
 
 Check your docker compose version with:
 ```

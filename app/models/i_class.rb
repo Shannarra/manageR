@@ -1,5 +1,6 @@
 class IClass < ApplicationRecord
   belongs_to :institution
+  has_many :subjects
 
   scope :for, ->(institution) { where(institution: institution) }
 

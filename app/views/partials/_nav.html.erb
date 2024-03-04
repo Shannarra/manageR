@@ -10,7 +10,7 @@
           <%= link_to institution.name, institution_url(institution), class: "nav-link partial-link" %>
         </li>
         <li class="nav-item">
-          <a class="nav-link partial-link" href="#">Link</a>
+          <%= link_to 'My subjects', subjects_url(institution_id: institution, class_id: current_user.i_class), class:"nav-link partial-link" %>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link partial-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -20,7 +20,7 @@
             <h6>My current class</h6>
             
             <li>
-              <%= link_to classes.first&.name, class_path(id: classes.first&.id || 0, institution_id: institution), class: "dropdown-item" %>
+              <%= link_to classes.first&.name, class_path(class_id: classes.first&.id || 0, institution_id: institution), class: "dropdown-item" %>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -28,7 +28,7 @@
             <h6>Classes from <%= institution.name %></h6>
             <% classes[1..]&.each do |klass| %>
             <li>
-              <%= link_to klass.name, class_path(id: klass, institution_id: institution), class: "dropdown-item" %>
+              <%= link_to klass.name, class_path(class_id: klass, institution_id: institution), class: "dropdown-item" %>
             </li>
             <% end %>
           </ul>

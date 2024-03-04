@@ -1,0 +1,25 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Subjects</h1>
+
+<div id="subjects">
+  <% if @subjects.count == 0 %>
+  <h2>
+    There are no subjects yet for this class
+    <% if current_user.has_elevated_privileges? %>
+       but you can <%= link_to "create new subject here", new_subject_path %>
+    <% end %>
+    .
+  </h2>
+  <% else %>
+    <% @subjects.each do |subject| %>
+      <%= render subject %>
+      <p>
+        <%= link_to "Show this subject", subject_path(subject_id: subject) %>
+      </p>
+    <% end %>
+  </div>
+  
+  <%= link_to "New subject", new_subject_path %>
+
+<% end %>

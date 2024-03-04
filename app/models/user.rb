@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   belongs_to :institution
   belongs_to :i_class
+  has_many :subjects, through: :i_class
 
   enum access_type: {
          admin: 5,
