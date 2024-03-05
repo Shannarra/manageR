@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-class ApplicationPolicy
+class AttendancePolicy < ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
@@ -8,36 +6,24 @@ class ApplicationPolicy
     @record = record
   end
 
-  def with_elevated_privileges?
-    user.has_elevated_privileges?
-  end
-
-  def privileged?
-    with_elevated_privileges? || user.teacher?
-  end
-
-  def same_account?
-    user == record
-  end
-
   def index?
-    false
+    privileged?
   end
 
   def show?
-    false
+    raise
   end
 
   def create?
-    false
+    privileged?
   end
 
   def new?
-    create?
+    privileged?
   end
 
   def update?
-    false
+    privileged?
   end
 
   def edit?
@@ -46,6 +32,10 @@ class ApplicationPolicy
 
   def destroy?
     false
+  end
+
+  def manage?
+    privileged?
   end
 
   class Scope

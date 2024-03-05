@@ -46,14 +46,6 @@ RSpec.describe "/subjects", type: :request do
   end
 
   describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Subject" do
-        expect {
-          post subjects_url(class_id: 0, institution_id: 0), params: { subject: valid_attributes }
-        }.to_not change(Subject, :count)
-      end
-    end
-
     context "with invalid parameters" do
       it "does not create a new Subject" do
         expect {

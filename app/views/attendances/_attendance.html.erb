@@ -1,0 +1,22 @@
+<div id="<%= dom_id attendance %>">
+  <p>
+    <strong>Type:</strong>
+    <%= attendance.attendance_type %>
+  </p>
+
+  <p>
+    <strong>Teacher:</strong>
+    <%= teacher(attendance).name %>
+  </p>
+
+  <p>
+    <strong>Student:</strong>
+    <%= student(attendance).name %>
+  </p>
+
+  <p>
+    <strong>Klass:</strong>
+    <%= attendance.i_class.name %>
+  </p>
+
+</div>
