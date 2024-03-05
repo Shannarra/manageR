@@ -7,6 +7,10 @@ module UsersHelper
     current_user.admin? || current_user.director?
   end
 
+  def institution_classes(user_id)
+    IClass.for(user_id).map {|x| [x.name, x.id]}
+  end
+
   # def modal
   #   {
   #     title: 'Delete my profile',

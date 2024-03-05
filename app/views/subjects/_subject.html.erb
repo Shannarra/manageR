@@ -15,10 +15,6 @@
         <div class="col col-md form-group">
           <%= link_to "Edit this subject", edit_subject_url(class_id: subject.klass, subject_id: subject), class: 'btn btn-success' %>
         </div>
-        <% else %>
-        <div class="col col-md form-group">
-          <%= link_to 'Enroll into class', class_url(subject.klass), class: 'btn btn-success' %>
-        </dev>
         <% end %>
       </div>
     </div>

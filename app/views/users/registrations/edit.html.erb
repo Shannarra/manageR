@@ -16,6 +16,13 @@
 
       <div class="row">
         <div class="form-group col-md pt-5">
+          <%= f.label :bio %><br />
+          <%= f.text_area :bio, class: 'form-control col-md-4', autofocus: true, autocomplete: "name", rows: 10 %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md pt-5">
           <%= f.label :name %><br />
           <%= f.text_field :name, class: 'form-control col-md-4', autofocus: true, autocomplete: "name", maxlength: 50 %>
         </div>

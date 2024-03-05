@@ -3,6 +3,8 @@
     <div class="flex-nowrap">
       <h2 class='d-flex justify-content-center'><%= @i_class.name %></h2>
       <h6 class='d-flex justify-content-center'>Study Year: <%= @i_class.year %></h6>
+      <h6 class='d-flex justify-content-center'>Currently enrolled students: <%= students_for_class(@i_class) %></h6>
+
       <div class="col col-md-8 p-5 mx-auto">
         <div class="row">
           <div class="form-group mt-5 text-roboto">

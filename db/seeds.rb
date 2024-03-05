@@ -17,6 +17,7 @@ User.create!(
   name: 'Petar Angelov',
   email: 'admin@example.com',
   password: '123456',
+  bio: Faker::Books::Lovecraft.paragraphs(number: rand(2..7)).join("\n"),
   access_type: 5,
   institution: Institution.first,
   i_class: IClass.first,
@@ -62,6 +63,7 @@ unless Rails.env.production?
       email: Faker::Internet.email,
       password: "123456",
       gender: %w[male female].sample,
+      bio: Faker::Books::Lovecraft.paragraphs(number: rand(2..7)).join("\n"),
       access_type: %w[student teacher].sample,
       institution: institution,
       i_class: IClass.for(institution).sample

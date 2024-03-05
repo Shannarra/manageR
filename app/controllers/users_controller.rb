@@ -119,6 +119,8 @@ class UsersController < ApplicationController
         :image,
         :image_cache,
         :institution_code,
+        :i_class,
+        :bio,
         :password,
         :password_confirmation,
         :current_password,
