@@ -1,27 +1,26 @@
 <div id="<%= dom_id subject %>">
-  <p>
-    <strong>Name:</strong>
-    <%= subject.name %>
-  </p>
-
-  <p>
-    <strong>Year:</strong>
-    <%= subject.year %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= subject.description %>
-  </p>
-
-  <p>
-    <strong>Teacher:</strong>
-    <%= subject.teacher.name %>
-  </p>
-
-  <p>
-    <strong>Klass:</strong>
-    <%= subject.klass.name %>
-  </p>
-
+  <div class='p-0'>
+    <h2 class='d-flex justify-content-center'><%= subject.name %></h2>
+    <h3 class='d-flex justify-content-center'>Thaught by &nbsp; <%= link_to subject.teacher.name, subject.teacher %></h3>
+    <h6 class='d-flex justify-content-center'>Study Year: <%= subject.year %></h6>
+    <div class="col col-md-8 mx-auto">
+      <div class="form-group mt-5 text-roboto">
+        <%= subject.description %>
+      </div>
+      <div class="row form-group mt-5">
+        <div class="col col-md-10">
+          <%= link_to 'Visit class', class_url(class_id: subject.klass), class: 'btn btn-primary' %>
+        </div>
+        <% if current_user.has_elevated_privileges? %>
+        <div class="col col-md form-group">
+          <%= link_to "Edit this subject", edit_subject_url(class_id: subject.klass, subject_id: subject), class: 'btn btn-success' %>
+        </div>
+        <% else %>
+        <div class="col col-md form-group">
+          <%= link_to 'Enroll into class', class_url(subject.klass), class: 'btn btn-success' %>
+        </dev>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

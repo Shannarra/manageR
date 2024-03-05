@@ -5,18 +5,19 @@
       <h6 class='d-flex justify-content-center'>Study Year: <%= @i_class.year %></h6>
       <div class="col col-md-8 p-5 mx-auto">
         <div class="row">
-          <div class="form-group mt-5">
+          <div class="form-group mt-5 text-roboto">
             <%= @i_class.description %>
           </div>
-
-          <div class="form-group mt-5">
-            <%= link_to 'Visit all subjects', subjects_url(class_id: @i_class), class: 'btn btn-primary' %>
+          <div class="row form-group mt-5">
+            <div class="col col-md-10">
+              <%= link_to 'Visit class subjects', subjects_url(institution_id: @i_class.institution.id, class_id: @i_class), class: 'btn btn-primary' %>
+            </div>
+            <% if current_user.has_elevated_privileges? %>
+            <div class="col col-md form-group">
+              <%= link_to "Edit this class", edit_class_url(id: @i_class), class: 'btn btn-success' %>
+            </div>
+            <% end %>
           </div>
-          <% if current_user.has_elevated_privileges? %>
-          <div class="form-group mt-5">
-            <%= link_to 'Edit this class', edit_class_url(id: @i_class), class: 'btn btn-primary' %>
-          </div>
-          <% end %>
         </div>
       </div>
     </div>

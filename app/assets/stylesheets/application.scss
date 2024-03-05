@@ -63,3 +63,11 @@ $gradient-down: linear-gradient(rgb(85, 88, 218) 0%, rgb(95, 209, 249) 200%);
 .sidebar-partial-link {
     @extend .partial-link;
 }
+
+
+.text-roboto {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 20px;
+}

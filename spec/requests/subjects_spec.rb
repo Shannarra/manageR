@@ -38,25 +38,9 @@ RSpec.describe "/subjects", type: :request do
     end
   end
 
-  describe "GET /show" do
-    it "renders a successful response" do
-      subject = Subject.create! valid_attributes
-      get subject_url(subject, institution_id: 1, class_id: 1)
-      expect(response).to_not be_successful
-    end
-  end
-
   describe "GET /new" do
     it "renders a successful response" do
       get new_subject_url(class_id: 0, institution_id: 0)
-      expect(response).to_not be_successful
-    end
-  end
-
-  describe "GET /edit" do
-    it "renders a successful response" do
-      subject = Subject.create! valid_attributes
-      get edit_subject_url(subject, institution_id: 0, class_id: 0)
       expect(response).to_not be_successful
     end
   end

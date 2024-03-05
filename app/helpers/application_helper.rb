@@ -24,4 +24,15 @@ module ApplicationHelper
   def classes
     IClass.for(institution)
   end
+
+  def flash_class(lvl)
+    case lvl
+    when "notice"
+      "success"
+    when "alert"
+      "error"
+    else
+      raise "This should be unreachable."
+    end
+  end
 end

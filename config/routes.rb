@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+
+  root 'welcome#index'
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -37,8 +40,5 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  root 'users#my_profile'
-
-  #match '*unmatched', to: 'application#action_not_found', via: :all
+  match '*unmatched', to: 'application#action_not_found', via: :all
 end
