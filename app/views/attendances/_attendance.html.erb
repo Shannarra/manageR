@@ -1,22 +1,52 @@
 <div id="<%= dom_id attendance %>">
-  <p>
-    <strong>Type:</strong>
-    <%= attendance.attendance_type %>
-  </p>
-
-  <p>
-    <strong>Teacher:</strong>
-    <%= teacher(attendance).name %>
-  </p>
-
-  <p>
-    <strong>Student:</strong>
-    <%= student(attendance).name %>
-  </p>
-
-  <p>
-    <strong>Klass:</strong>
-    <%= attendance.i_class.name %>
-  </p>
-
+  <div class="col-lg-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Student name</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">
+              <% if !attendance.partial %>
+              <h4><%= student(attendance).name %></h4>
+              <% end %>
+            </p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Attendance</p>
+          </div>
+          <div class="col-sm-9">
+            <h4 class="text-<%= attendance.attendance_type == 'absent' ? 'danger' : 'success' %>">
+              <b>
+                <i>
+                  <%= attendance.attendance_type %>
+                </i>
+              </b>
+            </h4>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Teacher</p>
+          </div>
+          <div class="col-sm-9">
+            <div class="col-sm-9">
+              <h4>
+                <%= link_to teacher(attendance).name, teacher(attendance) %>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <h4>
+          <%= link_to "Show this attendance", attendance %>
+        </h4>
+      </div>
+    </div>
+  </div>
 </div>

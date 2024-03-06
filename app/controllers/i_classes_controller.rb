@@ -7,7 +7,10 @@ class IClassesController < ApplicationController
   end
 
   def possible_classes
-    Institution.includes(:i_classes).find(current_institution_id).i_classes
+    Institution
+      .includes(:i_classes)
+      .find(current_institution_id)
+      .i_classes
   end
 
   def current_institution_id

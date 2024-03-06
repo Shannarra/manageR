@@ -17,7 +17,7 @@ module AttendancesHelper
 
   def accessible_classes
     IClass
-      .for(current_user.institution)
+      .where(id: accessible_users.map(&:i_class))
       .map {|x| [x.name, x.id] }
   end
 
@@ -26,6 +26,10 @@ module AttendancesHelper
   end
 
   def student(attendance)
-    User.find(attendance.student_id)
+    User.find(attendance.student_id) unless attendance.partial
+  end
+
+  def class_students(klass)
+    User.where(i_class: klass)
   end
 end

@@ -1,14 +1,29 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Attendances</h1>
-
-<div id="attendances">
-  <% @attendances.each do |attendance| %>
-    <%= render attendance %>
-    <p>
-      <%= link_to "Show this attendance", attendance %>
-    </p>
-  <% end %>
+<div class="container-fluid">
+  <div class="flex-nowrap">
+    <div class="col col-md-8 p-5 mx-auto">
+      <h1 class="text-center">Attendance for all classes on <%= Date.today %></h1>
+      <div id="attendances">
+        <% @attendances.each do |_, attendances| %>
+          <div class="mt-5">
+            <h3 class="text-center"><%= attendances.first.i_class.name %> (<%= attendances.count %>)</h3>
+            <div class="col-md-8 mx-auto">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <% attendances.each_with_index do |attendance, idx| %>
+                    <%= render attendance, attendance: attendance %>
+                    <% if idx != attendances.length - 1 %><hr/> <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
-
 <%= link_to "New attendance", new_attendance_path %>

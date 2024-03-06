@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :attendances
-
   root 'welcome#index'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -41,5 +39,16 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :attendances do
+    collection do
+      get :multi
+      post :start_multi
+
+      get :continue_multi
+      post :save_multi
+    end
+  end
+
   match '*unmatched', to: 'application#action_not_found', via: :all
 end

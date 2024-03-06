@@ -39,6 +39,14 @@ class UserPolicy < ApplicationPolicy
     with_elevated_privileges?
   end
 
+  def multi?
+    with_elevated_privileges? || teacher?
+  end
+
+  def continue_multi?
+    multi?
+  end
+
   class Scope
     def initialize(user, scope)
       @user = user

@@ -1,0 +1,47 @@
+<%= form_with(model: attendance, url: save_multi_attendances_url, method: :post) do |form| %>
+  <% if attendance.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(attendance.errors.count, "error") %> prohibited this attendance from being saved:</h2>
+
+      <ul>
+        <% attendance.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+      <% students = class_students(attendance.i_class) %>
+      <% if students.length > 0 %>
+      <h1 class="text-center">Taking attendance for <%= attendance.i_class.name %></h1>
+
+      <div class="row col-md px-5">
+
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Student</th>
+            <th scope="col">Attendance</th>
+          </tr>
+        </thead>
+        <% students.each_with_index do |student, idx| %>
+        <tbody>
+          <tr>
+            <td><%= student.name %></td>
+            <td>
+              <%= form.select nil, Attendance.taking_types, { id: nil }, {  class: 'form-select form-select col-md-4'} %></td>
+            <%= form.hidden_field "students", {value: student.id, name: "students[]" }%>
+
+          </tr>
+          <tr>
+        <% end %>
+        </tbody>
+      </table>
+      <div class="row col-md p-5">
+        <%= form.submit 'Submit class attendance', class: "btn btn-success" %>
+      </div>
+      <% else %>
+      <h1 class='text-center text-danger'>Class has no studens yet.</h1>
+      <% end %>
+    </div>
+<% end %>
+

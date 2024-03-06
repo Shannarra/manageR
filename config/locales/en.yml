@@ -30,6 +30,10 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  activerecord:
+    attributes:
+      attendance:
+        i_class: "Class name"
   views:
     pagination:
       first: "Go to first"
