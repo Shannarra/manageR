@@ -1,0 +1,9 @@
+<h1>Exams</h1>
+
+<div id="exams">
+  <% @exams.each do |exam| %>
+    <%= render exam %>
+  <% end %>
+</div>
+
+<%= link_to "New exam", new_exam_path %>

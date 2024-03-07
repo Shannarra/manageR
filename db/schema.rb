@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_06_090156) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_07_085412) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,6 +89,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_06_090156) do
     t.index ["i_class_id"], name: "index_attendances_on_i_class_id"
   end
 
+  create_table "exams", force: :cascade do |t|
+    t.integer "exam_type"
+    t.date "schedule"
+    t.string "name"
+    t.string "attachment"
+    t.bigint "subject_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_exams_on_subject_id"
+    t.index ["user_id"], name: "index_exams_on_user_id"
+  end
+
   create_table "i_classes", force: :cascade do |t|
     t.string "name"
     t.integer "year"
@@ -104,7 +117,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_06_090156) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "code", default: "PySRriPA8bDNIwRTf6gB"
+    t.string "code", default: "lMuq3foFKOgQq6NRNdBa"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -145,6 +158,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_06_090156) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "attendances", "i_classes"
+  add_foreign_key "exams", "subjects"
+  add_foreign_key "exams", "users"
   add_foreign_key "i_classes", "institutions"
   add_foreign_key "subjects", "i_classes"
   add_foreign_key "subjects", "users"

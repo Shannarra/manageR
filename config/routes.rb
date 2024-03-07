@@ -50,5 +50,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :exams
+
   match '*unmatched', to: 'application#action_not_found', via: :all
 end

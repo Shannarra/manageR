@@ -1,0 +1,84 @@
+<div id="<%= dom_id exam %>">
+  <div class="col-lg-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Exam</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">
+              <h4><%= exam.name %></h4>
+            </p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Teacher name</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">
+              <h4><%= link_to exam.user.name, exam.user %></h4>
+            </p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Subject name</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">
+              <h4><%= exam.subject.name %></h4>
+            </p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Students</p>
+          </div>
+          <div class="col-sm-9">
+            <div class="col-sm-9">
+              <h4>
+                <%= exam.users.count %>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Scheduled for</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">
+              <h4 class="text-<%= future?(exam) ? 'success' : 'danger' %>">
+                <%= humanized_schedule exam %>
+              </h4>
+            </p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Attachment</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">
+              <h4 class="text-<%= future?(exam) ? 'success' : 'danger' %>">
+                <%= link_to exam.attachment.identifier, exam.attachment.url, download: exam.attachment.identifier %>
+              </h4>
+            </p>
+          </div>
+        </div>
+        <hr>
+
+        <h4>
+          <%= link_to "Show this exam", exam %>
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
