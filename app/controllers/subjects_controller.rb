@@ -28,7 +28,6 @@ class SubjectsController < ApplicationController
 
   # POST /subjects or /subjects.json
   def create
-    authorize @subject
     authorize current_user
 
     @subject = Subject.new(subject_params)
