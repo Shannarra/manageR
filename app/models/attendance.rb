@@ -15,7 +15,6 @@ class Attendance < ApplicationRecord
 
   validates :i_class, presence: { message: "must exist" }
   validate :teacher
-  validates :student, presence: true, unless: :partial
   validate :partial_items, if: :partial
 
   scope :taking_types, -> { %i[ present absent ] }

@@ -17,10 +17,6 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.new
   end
 
-  def partial_items
-    raise
-  end
-
   def multi
     authorize current_user
     @attendance = Attendance.new
@@ -31,6 +27,13 @@ class AttendancesController < ApplicationController
 
     authorize current_user
     @attendance = Attendance.where(partial: true).last
+
+    already_taken = Attendance.daily.where(i_class_id: @attendance.i_class, partial: false).count
+
+    unless already_taken.zero?
+      @attendance.delete
+      redirect_to attendances_url, notice: "Class attendance for this class has already been taken for today"
+    end
   end
 
   def start_multi
@@ -63,13 +66,20 @@ class AttendancesController < ApplicationController
       }
     end
 
+    unless objects.all? {|o| Attendance.new(o).valid? }
+      # TODO: This is a great place to add something along the lines of
+      # DataDog/NewRelic/Sentry and log an error to administrators/tech support
+
+      render continue_multi_attendances_url, status: :unprocessable_entity, alert: 'Something went wrong, please try submitting the multi attendance again.'
+    end
+
     Attendance.insert_all!(objects)
 
     respond_to do |format|
       if attendance.delete
         format.html { redirect_to attendances_url(@attendance), notice: "Attendances for class #{attendance.i_class.name} successfully saved. #{students.length} #{"record".pluralize(students)} successfully updated." }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render continue_multi_attendances_url, status: :unprocessable_entity }
       end
     end
   end
@@ -83,12 +93,12 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.new(attendance_params)
 
     respond_to do |format|
-      if @attendance.save
+      if Attendance.exists?(*@attendance.id)
+        format.html { redirect_to attendances_url, notice: "This attendance has already been taken." }
+      elsif @attendance.save
         format.html { redirect_to attendance_url(@attendance), notice: "Attendance was successfully created." }
-        format.json { render :show, status: :created, location: @attendance }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @attendance.errors, status: :unprocessable_entity }
       end
     # rescue NoMethodError
     #   @attendance.errors.add(:attendance_type, "must exist")

@@ -1,17 +1,19 @@
 Institution.create!(
-  name: 'manageR',
+  name: 'manageR institute',
   location: 'none',
 )
 
-IClass.create!(
-  name: Faker::Educator.course_name,
-  year: (1..5).to_a.sample,
-  institution: Institution.first,
-  description: Faker::Lorem.paragraphs(
-    number: rand(5..50),
-    supplemental: true,
-  ).join("\n")
-)
+2.times do
+  IClass.create!(
+    name: Faker::Educator.course_name,
+    year: (1..5).to_a.sample,
+    institution: Institution.first,
+    description: Faker::Lorem.paragraphs(
+      number: rand(5..50),
+      supplemental: true,
+    ).join("\n")
+  )
+end
 
 User.create!(
   name: 'Petar Angelov',
@@ -23,16 +25,30 @@ User.create!(
   i_class: IClass.first,
 )
 
-Subject.create!(
-  name: 'Test subject',
-  year: (1..5).to_a.sample,
-  description: Faker::Lorem.paragraphs(
-    number: rand(5..50),
-    supplemental: true,
-  ).join("\n"),
-  user: User.first,
-  i_class: IClass.first
-)
+4.times do
+  User.create!(
+    name: Faker::Name.name,
+    email: Faker::Internet.email,
+    password: '123456',
+    bio: Faker::Books::Lovecraft.paragraphs(number: rand(2..7)).join("\n"),
+    access_type: rand(2..4), # teacher or student
+    institution: Institution.first,
+    i_class: IClass.first,
+  )
+end
+
+6.times do
+  Subject.create!(
+    name: 'Test subject',
+    year: (1..5).to_a.sample,
+    description: Faker::Lorem.paragraphs(
+      number: rand(5..50),
+      supplemental: true,
+    ).join("\n"),
+    user: User.first,
+    i_class: IClass.all.sample
+  )
+end
 
 unless Rails.env.production?
   5.times do
