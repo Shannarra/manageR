@@ -3,11 +3,17 @@ class ExamsController < ApplicationController
 
   # GET /exams or /exams.json
   def index
+    authorize @exam
     @exams = Exam.all
+  end
+
+  def upcoming
+    @exams = Exam.upcoming.user_exams(current_user)
   end
 
   # GET /exams/1 or /exams/1.json
   def show
+    authorize @exam
   end
 
   # GET /exams/new
@@ -17,11 +23,13 @@ class ExamsController < ApplicationController
 
   # GET /exams/1/edit
   def edit
+    authorize @exam
   end
 
   # POST /exams or /exams.json
   def create
     @exam = Exam.new(exam_params)
+    authorize @exam
 
     respond_to do |format|
       if @exam.save
@@ -36,6 +44,8 @@ class ExamsController < ApplicationController
 
   # PATCH/PUT /exams/1 or /exams/1.json
   def update
+    authorize @exam
+
     respond_to do |format|
       if @exam.update(exam_params)
         format.html { redirect_to exam_url(@exam), notice: "Exam was successfully updated." }
@@ -49,6 +59,7 @@ class ExamsController < ApplicationController
 
   # DELETE /exams/1 or /exams/1.json
   def destroy
+    authorize @exam
     @exam.destroy
 
     respond_to do |format|

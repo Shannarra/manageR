@@ -35,6 +35,7 @@
           </div>
         </div>
         <hr>
+        <% if current_user.can_grade? %>
         <div class="row">
           <div class="col-sm-3">
             <p class="mb-0">Students</p>
@@ -48,6 +49,7 @@
           </div>
         </div>
         <hr>
+        <% end %>
         <div class="row">
           <div class="col-sm-3">
             <p class="mb-0">Scheduled for</p>
@@ -67,17 +69,16 @@
           </div>
           <div class="col-sm-9">
             <p class="text-muted mb-0">
-              <h4 class="text-<%= future?(exam) ? 'success' : 'danger' %>">
+              <h4>
+                <% if exam.attachment.identifier %>
                 <%= link_to exam.attachment.identifier, exam.attachment.url, download: exam.attachment.identifier %>
+                <% else %>
+                None provided
+                <% end %>
               </h4>
             </p>
           </div>
         </div>
-        <hr>
-
-        <h4>
-          <%= link_to "Show this exam", exam %>
-        </h4>
       </div>
     </div>
   </div>

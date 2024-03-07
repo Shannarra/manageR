@@ -13,8 +13,9 @@ class AttendancesController < ApplicationController
 
   # GET /attendances/new
   def new
-    authorize current_user
     @attendance = Attendance.new
+
+    authorize @attendance
   end
 
   def multi

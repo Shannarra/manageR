@@ -2,7 +2,11 @@ class InstitutionsController < ApplicationController
   before_action :set_institution, only: %i[show]
 
   def show
-    authorize @institution
+    if current_user.institution_code.nil?
+      redirect_to verify_code_users_path, alert: 'You need to verify your institution before accessing it!'
+    else
+      authorize @institution
+    end
   end
 
   def manage

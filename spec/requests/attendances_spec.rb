@@ -24,16 +24,16 @@ RSpec.describe "/attendances", type: :request do
     skip("Add a hash of attributes invalid for your model")
   }
 
-  let(:user) { create(:user) }
+  let(:teacher) { build(:user, access_type: 'teacher') }
 
   before(:each) do
-    sign_in user
+    sign_in teacher
   end
 
   describe "GET /new" do
     it "renders a successful response" do
       get new_attendance_url
-      expect(response).to_not be_successful
+      expect(response).to be_successful
     end
   end
 

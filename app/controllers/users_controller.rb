@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   end
 
   def manage
+    authorize current_user
     name = params[:search] || ""
 
     @users = User
@@ -46,6 +47,7 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
+    authorize current_user
     @user = User.create(user_registration_sanitized_params)
 
     respond_to do |format|
@@ -81,6 +83,8 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
+    authorize current_user
+
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }

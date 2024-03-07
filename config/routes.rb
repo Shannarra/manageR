@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   resources :institutions, param: :institution_id do
     collection do
-      get 'manage', :to => 'institutions#manage'
+      get :manage #, to:> 'institutions#manage'
     end
     member do
       get :show
@@ -50,7 +50,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :exams
+  resources :exams do
+    collection do
+      get :upcoming
+    end
+  end
 
   match '*unmatched', to: 'application#action_not_found', via: :all
 end

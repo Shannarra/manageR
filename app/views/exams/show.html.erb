@@ -1,10 +1,7 @@
-<p style="color: green"><%= notice %></p>
-
 <%= render @exam %>
 
+<% if current_user.can_grade? %>
 <div>
-  <%= link_to "Edit this exam", edit_exam_path(@exam) %> |
-  <%= link_to "Back to exams", exams_path %>
-
-  <%= button_to "Destroy this exam", @exam, method: :delete %>
+  <%= button_to "Remove this exam", @exam, method: :delete, class: 'btn btn-danger' %>
 </div>
+<% end %>
