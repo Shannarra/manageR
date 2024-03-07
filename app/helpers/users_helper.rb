@@ -8,7 +8,7 @@ module UsersHelper
   end
 
   def institution_classes(user_id)
-    IClass.for(user_id).map {|x| [x.name, x.id]}
+    select_options IClass.for(user_id)
   end
 
   # def modal

@@ -1,9 +1,9 @@
 module SubjectsHelper
   def institution_users
-    Institution.find(current_user.institution.id).users.map {|x| [x.name, x.id]}
+    select_options Institution.find(current_user.institution.id).users
   end
 
-  def institution_classes
-    IClass.for(current_user.institution.id).map {|x| [x.name, x.id]}
+  def subject_institution_classes
+    select_options IClass.for(current_user.institution.id)
   end
 end

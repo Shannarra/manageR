@@ -35,4 +35,8 @@ module ApplicationHelper
       raise "This should be unreachable."
     end
   end
+
+  def select_options(collection)
+    collection.map {|x| [x.name, x.id]}
+  end
 end

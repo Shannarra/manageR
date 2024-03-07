@@ -28,6 +28,8 @@ class SubjectsController < ApplicationController
 
   # POST /subjects or /subjects.json
   def create
+    authorize current_user
+
     @subject = Subject.new(subject_params)
 
     respond_to do |format|
@@ -79,20 +81,30 @@ class SubjectsController < ApplicationController
       subject_id = params[:subject_id]
       @subject = possible_subjects.find(subject_id)
     rescue ActiveRecord::RecordNotFound
-      new_subject_class = Subject.find(subject_id).klass
-      is_error = new_subject_class == klass
+      set_help(subject_id, klass)
+    end
 
-      respond_to do |format|
-        if is_error
-          message = "Class not found for the current institution"
-          message = "Subject does not exist for the class \"#{klass.name}\"." if klass
-          url = klass.nil? ? root_url : class_url(klass)
+    def set_help(subject_id, klass)
+      begin
+        new_subject_class = Subject.find(subject_id).klass
+        is_error = new_subject_class == klass
 
-          format.html { redirect_to url, alert: message}
-        else
-          message = "Subject was successfully moved"
+        respond_to do |format|
+          if is_error
+            message = "Class not found for the current institution"
+            message = "Subject does not exist for the class \"#{klass.name}\"." if klass
+            url = klass.nil? ? root_url : class_url(klass)
 
-          format.html { redirect_to institution_url(current_user.institution), notice: message }
+            format.html { redirect_to url, alert: message}
+          else
+            message = "Subject was successfully moved"
+
+            format.html { redirect_to institution_url(current_user.institution), notice: message }
+          end
+        end
+      rescue ActiveRecord::RecordNotFound
+        respond_to do |format|
+          format.html { redirect_to institution_url(current_user.institution), alert: 'Couldn\'t find a subject you were looking for.' }
         end
       end
     end

@@ -1,0 +1,7 @@
+<%= render @exam %>
+
+<% if current_user.can_grade? %>
+<div>
+  <%= button_to "Remove this exam", @exam, method: :delete, class: 'btn btn-danger' %>
+</div>
+<% end %>

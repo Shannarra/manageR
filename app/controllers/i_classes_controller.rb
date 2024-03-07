@@ -46,6 +46,8 @@ class IClassesController < ApplicationController
 
   # POST /i_classes or /i_classes.json
   def create
+    authorize current_user
+
     @i_class = IClass.new(i_class_params)
 
     respond_to do |format|

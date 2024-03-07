@@ -4,21 +4,18 @@ module AttendancesHelper
   end
 
   def accessible_teachers
-    accessible_users
-      .where(access_type: :teacher)
-      .map {|x| [x.name, x.id] }
+    select_options accessible_users
+                     .where(access_type: :teacher)
   end
 
   def accessible_students
-    accessible_users
-      .where(access_type: :student)
-      .map {|x| [x.name, x.id] }
+    select_options accessible_users
+                     .where(access_type: :student)
   end
 
   def accessible_classes
-    IClass
-      .where(id: accessible_users.map(&:i_class))
-      .map {|x| [x.name, x.id] }
+    select_options IClass
+                     .where(id: accessible_users.map(&:i_class))
   end
 
   def teacher(attendance)
