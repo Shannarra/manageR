@@ -1,43 +1,79 @@
-FROM ruby:3.3.0-slim
+FROM ruby:3.3.0-slim-bookworm AS assets
+LABEL maintainer="Nick Janetakis <nick.janetakis@gmail.com>"
 
-RUN apt-get update -qq && apt-get install -yq --no-install-recommends \
-    build-essential \
-    gnupg2 \
-    libpq-dev \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+WORKDIR /app
 
-ENV LANG=C.UTF-8 \
-  BUNDLE_JOBS=4 \
-  BUNDLE_RETRY=3 \
-  RAILS_ENV=production
+ARG UID=1000
+ARG GID=1000
 
-RUN gem update --system && gem install bundler
+RUN bash -c "set -o pipefail && apt-get update \
+  && apt-get install -y --no-install-recommends build-essential curl git libpq-dev \
+  && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key -o /etc/apt/keyrings/nodesource.asc \
+  && echo 'deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main' | tee /etc/apt/sources.list.d/nodesource.list \
+  && apt-get update && apt-get install -y --no-install-recommends nodejs \
+  && corepack enable \
+  && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
+  && apt-get clean \
+  && groupadd -g \"${GID}\" ruby \
+  && useradd --create-home --no-log-init -u \"${UID}\" -g \"${GID}\" ruby \
+  && mkdir /node_modules && chown ruby:ruby -R /node_modules /app"
 
-WORKDIR /usr/src/app
+USER ruby
 
-COPY Gemfile* ./
+COPY --chown=ruby:ruby Gemfile* ./
+RUN bundle install
 
-RUN bundle config frozen true \
- && bundle config jobs 4 \
- && bundle config deployment true \
- && bundle config without 'development test' \
- && bundle install
+COPY --chown=ruby:ruby package.json *yarn* ./
+RUN yarn install
 
-COPY . .
+ARG RAILS_ENV="production"
+ARG NODE_ENV="production"
+ENV RAILS_ENV="${RAILS_ENV}" \
+    NODE_ENV="${NODE_ENV}" \
+    PATH="${PATH}:/home/ruby/.local/bin:/node_modules/.bin" \
+    USER="ruby"
 
-# Precompile assets
-# SECRET_KEY_BASE or RAILS_MASTER_KEY is required in production, but we don't
-# want real secrets in the image or image history. The real secret is passed in
-# at run time
-ARG SECRET_KEY_BASE=fakekeyforassets
-RUN rake assets:precompile
+COPY --chown=ruby:ruby . .
 
-# Run database migrations when deploying to Render. It is not great, maybe there's a better way?
-# https://community.render.com/t/release-command-for-db-migrations/247/6
-ARG RENDER
-ARG DATABASE_URL
-RUN if [ -z "$RENDER" ]; then echo "var is unset"; else bin/rails db:migrate; fi
+RUN if [ "${RAILS_ENV}" != "development" ]; then \
+  SECRET_KEY_BASE_DUMMY=1 rails assets:precompile; fi
 
-EXPOSE 3000
+CMD ["bash"]
+
+###############################################################################
+
+FROM ruby:3.3.0-slim-bookworm AS app
+LABEL maintainer="Nick Janetakis <nick.janetakis@gmail.com>"
+
+WORKDIR /app
+
+ARG UID=1000
+ARG GID=1000
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends build-essential curl libpq-dev \
+  && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
+  && apt-get clean \
+  && groupadd -g "${GID}" ruby \
+  && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" ruby \
+  && chown ruby:ruby -R /app
+
+USER ruby
+
+COPY --chown=ruby:ruby bin/ ./bin
+RUN chmod 0755 bin/*
+
+ARG RAILS_ENV="production"
+ENV RAILS_ENV="${RAILS_ENV}" \
+    PATH="${PATH}:/home/ruby/.local/bin" \
+    USER="ruby"
+
+COPY --chown=ruby:ruby --from=assets /usr/local/bundle /usr/local/bundle
+COPY --chown=ruby:ruby --from=assets /app/public /public
+COPY --chown=ruby:ruby . .
+
+ENTRYPOINT ["/app/bin/docker-entrypoint-web"]
+
+EXPOSE 8000
 
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
