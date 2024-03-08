@@ -56,5 +56,10 @@ Rails.application.routes.draw do
     end
   end
 
+  # Disable FE views for grading systems, only admins should be able to mod
+  # GradingSystem objects via AA.
+  resources :grading_systems, only: []
+
+
   match '*unmatched', to: 'application#action_not_found', via: :all
 end
