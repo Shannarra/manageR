@@ -22,7 +22,7 @@ class Exam < ApplicationRecord
             },
             inclusion: {
               in: (1.day.from_now..),
-              message: 'in the future must be provided'
+              message: 'at least one day in the future must be provided'
             }
 
   scope :creation_types, -> { %i[ physical online ] }

@@ -9,6 +9,8 @@ class User < ApplicationRecord
   belongs_to :i_class
   has_many :subjects, through: :i_class
   has_many :attendances
+  has_many :assigned_grades_to_me, class_name: 'Grade', foreign_key: 'assignee'
+  has_many :assigned_grades_from_me, class_name: 'Grade', foreign_key: 'assignee'
 
   enum access_type: {
          admin: 5,

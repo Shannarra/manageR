@@ -3,22 +3,23 @@ class ExamsController < ApplicationController
 
   # GET /exams or /exams.json
   def index
-    authorize @exam
-    @exams = Exam.all
+    @exams = Exam.all.user_exams(current_user)
+    authorize @exams
   end
 
   def upcoming
     @exams = Exam.upcoming.user_exams(current_user)
   end
 
-  # GET /exams/1 or /exams/1.json
   def show
     authorize @exam
+    authorize current_user
   end
 
   # GET /exams/new
   def new
     @exam = Exam.new
+    authorize @exam
   end
 
   # GET /exams/1/edit

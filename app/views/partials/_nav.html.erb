@@ -20,10 +20,7 @@
             <li><%=link_to("Daily report", attendances_url, { class: "nav-link dropdown-item" }) %></li>
             <li><%=link_to("Take attendance of student", new_attendance_url, { class: "nav-link dropdown-item" }) %></li>
             <li><%=link_to("Take attendance of class", multi_attendances_url, { class: "nav-link dropdown-item" }) %></li>
-
           </ul>
-
-          <%#= link_to 'Attendance', attendances_url, class:"nav-link partial-link" %>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link partial-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,8 +54,13 @@
             <h6>Exams</h6>
             <li><%=link_to("Post new exam", new_exam_url, { class: "nav-link dropdown-item" }) %></li>
             <li><%=link_to("All exams", exams_url, { class: "nav-link dropdown-item" }) %></li>
+            
+            <h6>Grades</h6>
+            <li><%=link_to("New grade", new_grade_url, { class: "nav-link dropdown-item" }) %></li>
+            <li><%=link_to("All grades", grades_url, { class: "nav-link dropdown-item" }) %></li>
             <% else %>
             <li><%=link_to("Upcoming exams", upcoming_exams_url, { class: "nav-link dropdown-item" }) %></li>
+            <li><%=link_to("My grades", mine_grades_url, { class: "nav-link dropdown-item" }) %></li>
             <% end %>
           </ul>
         </li>

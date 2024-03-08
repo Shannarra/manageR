@@ -10,7 +10,7 @@ GradingSystem.create!(
   step: 1,
   direction: :positive,
   description: 'Grading system used in Bulgaria',
-  institution_id: Institution.first
+  institution_id: Institution.first.id
 )
 
 2.times do

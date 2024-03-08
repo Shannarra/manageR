@@ -1,4 +1,4 @@
-class ExamPolicy < ApplicationPolicy
+class GradePolicy < ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
@@ -10,12 +10,8 @@ class ExamPolicy < ApplicationPolicy
     user.can_grade?
   end
 
-  def show?
-    true
-  end
-
   def create?
-    with_elevated_privileges? || user.can_grade?
+    user.can_grade?
   end
 
   def new?
@@ -23,7 +19,7 @@ class ExamPolicy < ApplicationPolicy
   end
 
   def update?
-    user.can_grade?
+    with_elevated_privileges? || user.can_grade?
   end
 
   def edit?
@@ -32,6 +28,10 @@ class ExamPolicy < ApplicationPolicy
 
   def destroy?
     update?
+  end
+
+  def manage?
+    with_elevated_privileges?
   end
 
   class Scope
