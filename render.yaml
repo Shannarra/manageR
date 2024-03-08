@@ -12,7 +12,7 @@ services:
     dockerfilePath: ./production.Dockerfile
     repo: https://github.com/Shannarra/manageR
     region: oregon
-    branch: main
+    branch: master
     plan: free
     dockerCommand: "bundle exec puma -C config/puma.rb"
     numInstances: 1
