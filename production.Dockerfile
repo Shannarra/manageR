@@ -32,7 +32,7 @@ ENV RAILS_ENV="${RAILS_ENV}" \
 
 COPY --chown=ruby:ruby . .
 
-RUN bin/rails assets:precompile
+RUN rake assets:precompile
 
 CMD ["bash"]
 
