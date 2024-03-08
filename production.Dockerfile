@@ -1,5 +1,5 @@
 FROM ruby:3.3.0-slim-bookworm AS assets
-LABEL maintainer="Nick Janetakis <nick.janetakis@gmail.com>"
+LABEL maintainer="Petar Angelov <petarangelov15@gmail.com>"
 
 WORKDIR /app
 
@@ -22,9 +22,6 @@ USER ruby
 
 COPY --chown=ruby:ruby Gemfile* ./
 RUN bundle install
-
-COPY --chown=ruby:ruby package.json *yarn* ./
-RUN yarn install
 
 ARG RAILS_ENV="production"
 ARG NODE_ENV="production"
