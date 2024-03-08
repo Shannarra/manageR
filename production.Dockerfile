@@ -30,7 +30,7 @@ COPY . .
 # want real secrets in the image or image history. The real secret is passed in
 # at run time
 ARG SECRET_KEY_BASE=fakekeyforassets
-RUN bin/rails assets:clobber && bundle exec rails assets:precompile
+RUN bundle exec rails assets:precompile
 
 # Run database migrations when deploying to Render. It is not great, maybe there's a better way?
 # https://community.render.com/t/release-command-for-db-migrations/247/6
