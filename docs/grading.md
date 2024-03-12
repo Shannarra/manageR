@@ -25,12 +25,13 @@ Attribute | Meaning
 
 3. Institutions clamp on the possible grades (when grading exam/user) depending on the related GradingSystem.
 4. Grading
-Grades are a simple manner - you can assign a grade to any student in the name of any teacher.
-Each grade can have only ONE of two possible values - __REASON__ or __SOURCE__.
-4.1 Reasons
-Reasons are just a text field that provide a description on why the grade was given to the student. Can contain any text, if needed.
-4.2 Sources
-A source of any grade is an exam.
-A grade that has a source exam will be dependent on it, meaning that if the source exam is deleted - all grades associated with it will also be deleted. This is done to prevent having grades with hanging (empty) sources and is generally good for the data.
-5. Multi-step forms
-A user is greeted with a form where they can choose the source type of a grade - __REGULAR__ or __EXAM__, corresponding accordingly to grades with "reason" and with "source".
+Grades are a simple manner - you can assign a grade to any student in the name of any teacher.  
+Each grade can have only ONE of two possible values - __REASON__ or __SOURCE__.  
+4.1 Reasons  
+Reasons are just a text field that provide a description on why the grade was given to the student. Can contain any text, if needed.  
+4.2 Sources  
+A source of any grade is an exam.  
+A grade that has a source exam will be dependent on it, meaning that if the source exam is deleted - all grades associated with it will also be deleted.  
+This is done to prevent having grades with hanging (empty) sources and is generally good for the data.
+6. Multi-step forms  
+A user is greeted with a form where they can choose the source type of a grade - __REGULAR__ or __EXAM__, corresponding accordingly to grades with "reason" and with "source".  
