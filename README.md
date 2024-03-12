@@ -22,8 +22,8 @@ This app is a comprehensive school management system using Rails 7 with PostgreS
 - [x] Study Subjects
 - [x] Attendance tracking
 - [x] Exams (with types: physical, online) and scheduling in the future
-- [ ] *IN PROGRESS* Grades
-- [ ] Reports for a specific class or all classes (in PDF, CSV), including top-graded students, average grades for subject, etc.
+- [x] (Grades)[./docs/grading.md]
+- [ ] *IN PROGRESS* Reports for a specific class or all classes (in PDF, CSV), including top-graded students, average grades for subject, etc.
 
 ## Requirements
 

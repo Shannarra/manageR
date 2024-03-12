@@ -2,7 +2,7 @@ class Exam < ApplicationRecord
   belongs_to :subject
   belongs_to :user
   has_many :users, through: :subject
-  before_destroy :remove_grades
+  before_destroy :remove_associated_grades!
 
   enum exam_type: {
          physical: 2,
@@ -36,7 +36,10 @@ class Exam < ApplicationRecord
     end
   }
 
-  def remove_grades
+  # This is done because :source on Grade is an optional field,
+  # therefore `dependent: :destroy` doesn't do the trick and leads
+  # to PG::ForeignKeyViolation error
+  def remove_associated_grades!
     Grade.where(source: self).delete_all
   end
 end
