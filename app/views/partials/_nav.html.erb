@@ -73,7 +73,8 @@
             <li><%=link_to("Manage Users", manage_users_url, { class: "nav-link dropdown-item" }) %></li>
             <li><%=link_to("Manage Institutions", manage_institutions_path, { class: "nav-link dropdown-item" }) %></li>
             <li><%=link_to("Manage Institution Classes", manage_classes_path(institution_id: current_user.institution), { class: "nav-link dropdown-item" }) %></li>
-
+            <hr />
+            <li><%=link_to("Go to admin site", admin_dashboard_url, { class: "nav-link dropdown-item" }) %></li>
           </ul>
         </li>
         <% end %>

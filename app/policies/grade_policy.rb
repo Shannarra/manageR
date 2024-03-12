@@ -6,6 +6,10 @@ class GradePolicy < ApplicationPolicy
     @record = record
   end
 
+  def show?
+    true
+  end
+
   def index?
     user.can_grade?
   end

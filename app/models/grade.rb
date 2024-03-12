@@ -1,7 +1,7 @@
 class Grade < ApplicationRecord
   belongs_to :assignee, class_name: 'User'
   belongs_to :assigned_by, class_name: 'User'
-  belongs_to :source, class_name: 'Exam', required: false
+  belongs_to :source, class_name: 'Exam', required: false, dependent: :destroy
 
   enum source_type: {
          exam: 2,

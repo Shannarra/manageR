@@ -13,7 +13,6 @@ class ExamsController < ApplicationController
 
   def show
     authorize @exam
-    authorize current_user
   end
 
   # GET /exams/new
@@ -30,6 +29,7 @@ class ExamsController < ApplicationController
   # POST /exams or /exams.json
   def create
     @exam = Exam.new(exam_params)
+    @exam.institution_id = exam_params.fetch(:institution_id, current_user.institution_id)
     authorize @exam
 
     respond_to do |format|
@@ -84,7 +84,8 @@ class ExamsController < ApplicationController
                 :user_id,
                 :schedule,
                 :name,
-                :attachment
+                :attachment,
+                :institution_id,
                )
     end
 end

@@ -1,11 +1,11 @@
 <div class="container-fluid">
   <div class="flex-nowrap">
     <div class="col col-md-8 p-5 mx-auto" data-controller="form-element" data-form-controller-action="click->setAccessTypeTooltop">
-      <h2 class='d-flex justify-content-center'> Create new user profile</h2>
+      <h2 class='d-flex justify-content-center'>Create new user profile</h2>
       <div class="text-danger h5">
         <%= alert %>
       </div>
-      <%= form_for(@user, url: create_user_path) do |f| %>
+      <%= form_for(@user, url: create_user_users_path) do |f| %>
         <div class="row">
           <div class="form-group col-md pt-5">
             <%= f.label :name %><br />
