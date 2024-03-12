@@ -3,6 +3,16 @@ Institution.create!(
   location: 'none',
 )
 
+GradingSystem.create!(
+  name: 'Bulgarian',
+  start_grade: 2,
+  end_grade: 6,
+  step: 1,
+  direction: :positive,
+  description: 'Grading system used in Bulgaria',
+  institution_id: Institution.first.id
+)
+
 2.times do
   IClass.create!(
     name: Faker::Educator.course_name,

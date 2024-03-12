@@ -9,7 +9,6 @@ export default class extends Controller {
     }
 
     remotesubmit() {
-        console.log('gere');
         this.submitbtnTarget.click();
     }
 }

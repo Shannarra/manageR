@@ -3,15 +3,14 @@ class ExamsController < ApplicationController
 
   # GET /exams or /exams.json
   def index
-    authorize @exam
-    @exams = Exam.all
+    @exams = Exam.all.user_exams(current_user)
+    authorize @exams
   end
 
   def upcoming
     @exams = Exam.upcoming.user_exams(current_user)
   end
 
-  # GET /exams/1 or /exams/1.json
   def show
     authorize @exam
   end
@@ -19,6 +18,7 @@ class ExamsController < ApplicationController
   # GET /exams/new
   def new
     @exam = Exam.new
+    authorize @exam
   end
 
   # GET /exams/1/edit
@@ -29,6 +29,7 @@ class ExamsController < ApplicationController
   # POST /exams or /exams.json
   def create
     @exam = Exam.new(exam_params)
+    @exam.institution_id = exam_params.fetch(:institution_id, current_user.institution_id)
     authorize @exam
 
     respond_to do |format|
@@ -83,7 +84,8 @@ class ExamsController < ApplicationController
                 :user_id,
                 :schedule,
                 :name,
-                :attachment
+                :attachment,
+                :institution_id,
                )
     end
 end

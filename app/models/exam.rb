@@ -2,6 +2,7 @@ class Exam < ApplicationRecord
   belongs_to :subject
   belongs_to :user
   has_many :users, through: :subject
+  before_destroy :remove_associated_grades!
 
   enum exam_type: {
          physical: 2,
@@ -22,10 +23,23 @@ class Exam < ApplicationRecord
             },
             inclusion: {
               in: (1.day.from_now..),
-              message: 'in the future must be provided'
+              message: 'at least one day in advance must be provided'
             }
 
   scope :creation_types, -> { %i[ physical online ] }
   scope :upcoming, -> { where(schedule: Date.today.beginning_of_day..) }
-  scope :user_exams, ->(user) { where(subject: user.i_class.subjects.pluck(:id)) }
+  scope :user_exams, ->(user) {
+    unless user.admin?
+      where(subject: user.i_class.subjects.pluck(:id))
+    else
+      where(institution_id: user.institution_id)
+    end
+  }
+
+  # This is done because :source on Grade is an optional field,
+  # therefore `dependent: :destroy` doesn't do the trick and leads
+  # to PG::ForeignKeyViolation error
+  def remove_associated_grades!
+    Grade.where(source: self).delete_all
+  end
 end

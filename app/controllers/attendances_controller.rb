@@ -3,7 +3,7 @@ class AttendancesController < ApplicationController
 
   # GET /attendances or /attendances.json
   def index
-    @attendances = Attendance.per_class
+    @attendances = Attendance.for_institution(current_user.institution).per_class
     #authorize @attendances
   end
 

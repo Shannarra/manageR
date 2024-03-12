@@ -12,9 +12,9 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/exams", type: :request do
+RSpec.describe "/grades", type: :request do
   # This should return the minimal set of attributes required to create a valid
-  # Exam. As you add validations to Exam, be sure to
+  # Grade. As you add validations to Grade, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -31,58 +31,58 @@ RSpec.describe "/exams", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      Exam.create! valid_attributes
-      get exams_url
+      Grade.create! valid_attributes
+      get grades_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      exam = Exam.create! valid_attributes
-      get exam_url(exam)
+      grade = Grade.create! valid_attributes
+      get grade_url(grade)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_exam_url
+      get new_grade_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "renders a successful response" do
-      exam = Exam.create! valid_attributes
-      get edit_exam_url(exam)
+      grade = Grade.create! valid_attributes
+      get edit_grade_url(grade)
       expect(response).to be_successful
     end
   end
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new Exam" do
+      it "creates a new Grade" do
         expect {
-          post exams_url, params: { exam: valid_attributes }
-        }.to change(Exam, :count).by(1)
+          post grades_url, params: { grade: valid_attributes }
+        }.to change(Grade, :count).by(1)
       end
 
-      it "redirects to the created exam" do
-        post exams_url, params: { exam: valid_attributes }
-        expect(response).to redirect_to(exam_url(Exam.last))
+      it "redirects to the created grade" do
+        post grades_url, params: { grade: valid_attributes }
+        expect(response).to redirect_to(grade_url(Grade.last))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new Exam" do
+      it "does not create a new Grade" do
         expect {
-          post exams_url, params: { exam: invalid_attributes }
-        }.to change(Exam, :count).by(0)
+          post grades_url, params: { grade: invalid_attributes }
+        }.to change(Grade, :count).by(0)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post exams_url, params: { exam: invalid_attributes }
+        post grades_url, params: { grade: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -94,42 +94,42 @@ RSpec.describe "/exams", type: :request do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested exam" do
-        exam = Exam.create! valid_attributes
-        patch exam_url(exam), params: { exam: new_attributes }
-        exam.reload
+      it "updates the requested grade" do
+        grade = Grade.create! valid_attributes
+        patch grade_url(grade), params: { grade: new_attributes }
+        grade.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the exam" do
-        exam = Exam.create! valid_attributes
-        patch exam_url(exam), params: { exam: new_attributes }
-        exam.reload
-        expect(response).to redirect_to(exam_url(exam))
+      it "redirects to the grade" do
+        grade = Grade.create! valid_attributes
+        patch grade_url(grade), params: { grade: new_attributes }
+        grade.reload
+        expect(response).to redirect_to(grade_url(grade))
       end
     end
 
     context "with invalid parameters" do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        exam = Exam.create! valid_attributes
-        patch exam_url(exam), params: { exam: invalid_attributes }
+        grade = Grade.create! valid_attributes
+        patch grade_url(grade), params: { grade: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested exam" do
-      exam = Exam.create! valid_attributes
+    it "destroys the requested grade" do
+      grade = Grade.create! valid_attributes
       expect {
-        delete exam_url(exam)
-      }.to change(Exam, :count).by(-1)
+        delete grade_url(grade)
+      }.to change(Grade, :count).by(-1)
     end
 
-    it "redirects to the exams list" do
-      exam = Exam.create! valid_attributes
-      delete exam_url(exam)
-      expect(response).to redirect_to(exams_url)
+    it "redirects to the grades list" do
+      grade = Grade.create! valid_attributes
+      delete grade_url(grade)
+      expect(response).to redirect_to(grades_url)
     end
   end
 end

@@ -1,0 +1,12 @@
+<h1 class="text-center">All Grades</h1>
+
+<div id="grades">
+  <% @grades.each do |grade| %>
+    <%= render grade %>
+    <p>
+      <%= link_to "Show this grade", grade %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New grade", new_grade_path %>

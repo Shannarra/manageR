@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_07_132433) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_12_112500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -99,8 +99,37 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_07_132433) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "description"
+    t.integer "institution_id"
     t.index ["subject_id"], name: "index_exams_on_subject_id"
     t.index ["user_id"], name: "index_exams_on_user_id"
+  end
+
+  create_table "grades", force: :cascade do |t|
+    t.integer "value"
+    t.string "reason"
+    t.integer "source_type"
+    t.bigint "assignee_id", null: false
+    t.bigint "assigned_by_id", null: false
+    t.bigint "source_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assigned_by_id"], name: "index_grades_on_assigned_by_id"
+    t.index ["assignee_id"], name: "index_grades_on_assignee_id"
+    t.index ["source_id"], name: "index_grades_on_source_id"
+  end
+
+  create_table "grading_systems", force: :cascade do |t|
+    t.string "name"
+    t.integer "start_grade"
+    t.integer "end_grade"
+    t.integer "step"
+    t.integer "direction", default: 0
+    t.string "description"
+    t.string "possible_grades"
+    t.bigint "institution_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["institution_id"], name: "index_grading_systems_on_institution_id"
   end
 
   create_table "i_classes", force: :cascade do |t|
@@ -118,7 +147,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_07_132433) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "code", default: "lMuq3foFKOgQq6NRNdBa"
+    t.string "code", default: "z18xBS6qhLcYqC4wEzsr"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -159,8 +188,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_07_132433) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "attendances", "i_classes"
+  add_foreign_key "exams", "institutions"
   add_foreign_key "exams", "subjects"
   add_foreign_key "exams", "users"
+  add_foreign_key "grades", "exams", column: "source_id"
+  add_foreign_key "grades", "users", column: "assigned_by_id"
+  add_foreign_key "grades", "users", column: "assignee_id"
+  add_foreign_key "grading_systems", "institutions"
   add_foreign_key "i_classes", "institutions"
   add_foreign_key "subjects", "i_classes"
   add_foreign_key "subjects", "users"
