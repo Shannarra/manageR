@@ -13,10 +13,11 @@ This app is a comprehensive school management system using Rails 7 with PostgreS
   - [x] Rubocop for linting
   - [x] Security checks with [Brakeman](https://github.com/presidentbeef/brakeman) and [bundler-audit](https://github.com/rubysec/bundler-audit)
 - [x] Dependabot for automated updates
-- [x] Devise for authentication
+- [x] Devise for [authentication](./docs/users/authentication.md)
 - [x] Different user access types (based on profile)
-- [x] Authorization checks using Pundit
-- [x] Admin panel and privileges
+  (see access types in [authentication docs](./docs/users/authentication.md))
+- [x] [Authorization](./docs/users/authorization.md) checks using Pundit
+- [x] [Admin panel](./docs/users/admin.md) and privileges
 - [x] Institutions
 - [x] Classses
 - [x] Study Subjects
