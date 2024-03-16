@@ -1,6 +1,10 @@
 class InstitutionsController < ApplicationController
   before_action :set_institution, only: %i[show]
 
+  def index
+    redirect_to institution_url(current_user.institution)
+  end
+
   def show
     if current_user.institution_code.nil?
       redirect_to verify_code_users_path, alert: 'You need to verify your institution before accessing it!'

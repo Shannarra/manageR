@@ -15,7 +15,7 @@ class SubjectPolicy < ApplicationPolicy
   end
 
   def update?
-    with_elevated_privileges?
+    with_elevated_privileges? || user.can_grade?
   end
 
   def edit?

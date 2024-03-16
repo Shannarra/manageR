@@ -1,5 +1,5 @@
 ActiveAdmin.register IClass do
-  permit_params :name, :year, :description
+  permit_params :name, :year, :description, :institution_id
 
   controller do
     def csv_filename
@@ -13,6 +13,9 @@ ActiveAdmin.register IClass do
     column :name
     column :year
     column :description
+    column :institution do |i|
+      i.institution.name
+    end
 
     column :students_count do |i|
       User.where(i_class: i).count
@@ -24,6 +27,7 @@ ActiveAdmin.register IClass do
       f.input :name
       f.input :year
       f.input :description, input_html: { value: 'Enter description for this class' }
+      f.input :institution_id
     end
     f.actions
   end
@@ -36,6 +40,9 @@ ActiveAdmin.register IClass do
     column :name
     column :year
     column :description
+    column :institution do |i|
+      i.institution.name
+    end
 
     column :students_count do |i|
       User.where(i_class: i).count

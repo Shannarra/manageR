@@ -8,6 +8,9 @@ class GradingSystem < ApplicationRecord
          unknown: 0
        }
 
+  validates :name,
+            presence: true
+
   validates :direction,
             presence: { message: 'must be provided' },
             inclusion: { in: :direction }
@@ -20,7 +23,18 @@ class GradingSystem < ApplicationRecord
             if: %i[ positive? negative? ]
 
   def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "description", "direction", "end_grade", "id", "institution_id", "name", "possible_grades", "start_grade", "step", "updated_at"]
+    %w[created_at
+       description
+       direction
+       end_grade
+       id
+       institution_id
+       name
+       possible_grades
+       start_grade
+       step
+       updated_at
+     ]
   end
 
   private

@@ -24,7 +24,10 @@ class AttendancesController < ApplicationController
   end
 
   def continue_multi
-    redirect_to multi_attendances_url, alert: "No class attendance to continue, you can always create one here: #{multi_attendances_url}." if Attendance.partial.count.zero?
+    if Attendance.partial.count.zero?
+      redirect_to multi_attendances_url,
+                  alert: "No class attendance to continue, you can always create one here: #{multi_attendances_url}." and return
+    end
 
     authorize current_user
     @attendance = Attendance.where(partial: true).last
@@ -71,14 +74,21 @@ class AttendancesController < ApplicationController
       # TODO: This is a great place to add something along the lines of
       # DataDog/NewRelic/Sentry and log an error to administrators/tech support
 
-      render continue_multi_attendances_url, status: :unprocessable_entity, alert: 'Something went wrong, please try submitting the multi attendance again.'
+      render continue_multi_attendances_url,
+             status: :unprocessable_entity,
+             alert: 'Something went wrong, please try submitting the multi attendance again.'
     end
 
     Attendance.insert_all!(objects)
 
     respond_to do |format|
       if attendance.delete
-        format.html { redirect_to attendances_url(@attendance), notice: "Attendances for class #{attendance.i_class.name} successfully saved. #{students.length} #{"record".pluralize(students)} successfully updated." }
+        format.html {
+          redirect_to attendances_url(@attendance),
+                      # rubocop:disable Layout/LineLength
+                      notice: "Attendances for class #{attendance.i_class.name} successfully saved. #{students.length} #{"record".pluralize(students)} successfully updated."
+          # rubocop:enable Layout/LineLength
+        }
       else
         format.html { render continue_multi_attendances_url, status: :unprocessable_entity }
       end

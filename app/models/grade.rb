@@ -10,10 +10,12 @@ class Grade < ApplicationRecord
        }
 
   validates :source_type, presence: true, inclusion: { in: :source_type }
-
   validate :assignee, if: :exam?
   validate :assigned_by, if: :exam?
-  validates :source, presence: true, if: :exam?
+  validates :source, presence: { message: 'must be provided for type "exam".'}, if: :exam?
+
+  # :value and :assignee will be validated
+  # by custom logic here
   validate :ensure_valid
 
   scope :types, ->() { %i[exam regular] }

@@ -147,7 +147,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_12_112500) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "code", default: "z18xBS6qhLcYqC4wEzsr"
+    t.string "code", default: "LR9dWXG7Q0jYft6NsiZq"
   end
 
   create_table "subjects", force: :cascade do |t|

@@ -45,7 +45,7 @@ class SubjectsController < ApplicationController
 
   # PATCH/PUT /subjects/1 or /subjects/1.json
   def update
-    authorize current_user
+    authorize @subject
 
     respond_to do |format|
       if @subject.update(subject_params)

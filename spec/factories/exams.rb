@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :exam do
-    exam_type { 1 }
-    subject { nil }
-    user { nil }
-    schedule { "2024-03-07" }
+    name { Faker::Internet.name }
+    exam_type { :physical }
+    subject { create(:subject) }
+    user { create(:user) }
+    schedule { 5.days.from_now }
   end
 end

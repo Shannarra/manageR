@@ -34,6 +34,8 @@ en:
     attributes:
       attendance:
         i_class: "Class name"
+      grade:
+        source: "Source exam"
   views:
     pagination:
       first: "Go to first"

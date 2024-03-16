@@ -46,8 +46,6 @@ class IClassesController < ApplicationController
 
   # POST /i_classes or /i_classes.json
   def create
-    authorize current_user
-
     @i_class = IClass.new(i_class_params)
 
     respond_to do |format|
@@ -93,6 +91,6 @@ class IClassesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def i_class_params
-      params.require(:i_class).permit(:name, :year, :institution_id)
+      params.require(:i_class).permit(:name, :year, :description, :institution_id)
     end
 end

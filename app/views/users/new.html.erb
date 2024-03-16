@@ -27,7 +27,8 @@
             <% end %>
           </div>
 
-          <div class="form-group col-md pt-5">
+          <div class="form-group col-md pt-4">
+            <%= f.label :access_type %>
             <%= f.select :access_type, User.access_visible_to(current_user), { include_blank: true }, data: { target: "form-element.access_type", action: "click->form-element#setAccessTypeTooltip" }, class: 'form-control col-md-4', required: true %>
           </div>
         </div>

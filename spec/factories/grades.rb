@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :grade do
-    value { 1 }
+    value { 4 }
     reason { "MyString" }
-    source { 1 }
-    assignee { 1 }
-    assigned_by { 1 }
+    source_type { :regular }
+    assignee { build(:user, institution: create(:institution)) }
+    assigned_by { build(:user, institution: Institution.last) }
   end
 end
