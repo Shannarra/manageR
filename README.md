@@ -19,10 +19,10 @@ This app is a comprehensive school management system using Rails 7 with PostgreS
 - [x] [Authorization](./docs/users/authorization.md) checks using Pundit
 - [x] [Admin panel](./docs/users/admin.md) and privileges
 - [x] [Institutions](./docs/institutions.md)
-- [x] Classses
-- [x] Study Subjects
-- [x] Attendance tracking
-- [x] Exams (with types: physical, online) and scheduling in the future
+- [x] [Classses](./docs/classes.md)
+- [x] Study [Subjects](./docs/subjects.md)
+- [x] [Attendance](./docs/attendance.md) tracking
+- [x] [Exams](./docs/exams.md) (with types: physical, online) and scheduling in the future
 - [x] [Grades](./docs/grading.md)
 - [ ] *IN PROGRESS* Reports for a specific class or all classes (in PDF, CSV), including top-graded students, average grades for subject, etc.
 
