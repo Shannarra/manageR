@@ -27,6 +27,6 @@ module AttendancesHelper
   end
 
   def class_students(klass)
-    User.where(i_class: klass)
+    User.where(i_class: klass, access_type: :student)
   end
 end

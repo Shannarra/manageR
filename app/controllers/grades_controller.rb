@@ -32,7 +32,6 @@ class GradesController < ApplicationController
 
   # POST /grades or /grades.json
   def create
-    authorize current_user
     @grade = Grade.new(grade_params)
     authorize @grade
 
@@ -64,7 +63,6 @@ class GradesController < ApplicationController
 
   # DELETE /grades/1 or /grades/1.json
   def destroy
-    authorize @current_user
     authorize @grade
 
     @grade.destroy

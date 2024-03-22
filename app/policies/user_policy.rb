@@ -40,7 +40,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def multi?
-    with_elevated_privileges? || teacher?
+    with_elevated_privileges? || user.teacher?
   end
 
   def continue_multi?

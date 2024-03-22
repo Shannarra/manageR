@@ -29,11 +29,7 @@ class Exam < ApplicationRecord
   scope :creation_types, -> { %i[ physical online ] }
   scope :upcoming, -> { where(schedule: Date.today.beginning_of_day..) }
   scope :user_exams, ->(user) {
-    unless user.admin?
-      where(subject: user.i_class.subjects.pluck(:id))
-    else
-      where(institution_id: user.institution_id)
-    end
+    where(institution_id: user.institution_id)
   }
 
   # This is done because :source on Grade is an optional field,

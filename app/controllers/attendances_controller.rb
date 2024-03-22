@@ -99,12 +99,22 @@ class AttendancesController < ApplicationController
   def edit
   end
 
+  def attendance_already_taken?
+    Attendance
+      .daily
+      .where(
+        i_class_id: @attendance.i_class_id,
+        student_id: @attendance.student_id,
+        # teacher_id: @attendance.teacher_id, # the class and student only matter
+      ).count > 0 # nonzero? returns a number, we'd need a boolean
+  end
+
   # POST /attendances or /attendances.json
   def create
     @attendance = Attendance.new(attendance_params)
 
     respond_to do |format|
-      if Attendance.exists?(*@attendance.id)
+      if attendance_already_taken?
         format.html { redirect_to attendances_url, notice: "This attendance has already been taken." }
       elsif @attendance.save
         format.html { redirect_to attendance_url(@attendance), notice: "Attendance was successfully created." }
