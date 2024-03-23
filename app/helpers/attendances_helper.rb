@@ -15,7 +15,7 @@ module AttendancesHelper
 
   def accessible_classes
     select_options IClass
-                     .where(id: accessible_users.map(&:i_class))
+                     .where(institution_id: institution)
   end
 
   def teacher(attendance)

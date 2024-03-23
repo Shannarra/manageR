@@ -1,5 +1,5 @@
 class IClassesController < ApplicationController
-  before_action :set_i_class, only: %i[show edit update]
+  before_action :set_i_class, only: %i[show edit update delete]
 
   # GET /i_classes or /i_classes.json
   def index
@@ -50,7 +50,7 @@ class IClassesController < ApplicationController
 
     respond_to do |format|
       if @i_class.save
-        format.html { redirect_to class_url(id: @i_class), notice: "I class was successfully created." }
+        format.html { redirect_to institution_url, notice: "Class was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end

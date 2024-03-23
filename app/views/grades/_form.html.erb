@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" data-controller="form-element">
   <div class="flex-nowrap justify-content-center">
     <%= form_with(model: grade) do |form| %>
     <% if grade.errors.any? %>
@@ -22,7 +22,7 @@
         <div id="update-continue"></div>
         <div data-controller="form-element">
           <%= form.label :source_type %><br />
-          <%= form.select :source_type, Grade.types, {include_blank: true, data: { action: 'onchange->form-element#remotesubmit'}}, {class: 'form-select form-select col-md-4' } %>
+          <%= form.select :source_type, Grade.types, {include_blank: true, data: { action: 'change->form-element#remotesubmit'}}, {class: 'form-select form-select col-md-4' } %>
         </div>
       </div>
     </div>
@@ -55,12 +55,12 @@
           <%= form.select :assigned_by_id, teachers, {}, { class: 'form-select' } %>
         </div>
       </div>
-      <% end %>
+     <% end %>
 
     <div class="row px-5 py-2">
       <div class="actions form-group pt-4 col-md">
         <% if !@filled %>
-        <%= form.submit "Continue", formaction: action_path, formmethod: :get, data: { turbo_frame: :source_id, form_element_target: "submitbtn" }, class: 'btn btn-success w-100' %>
+        <%= form.submit "Continue", formaction: action_path, formmethod: :get, data: { turbo_frame: :source_id, form_element_target: "submitbtn", id: "submitbtn" }, class: 'btn btn-success w-100', id: "submitbtn" %>
         <% else %>
         <%= form.submit "Submit!", class: "btn btn-success col-md w-100"%>
         <% end %>

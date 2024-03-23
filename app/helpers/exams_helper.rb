@@ -11,7 +11,7 @@ module ExamsHelper
 
   def institution_subjects
     select_options Subject.where(
-      id: IClass.for(institution).pluck(:id)
+      i_class: IClass.for(institution).pluck(:id)
     )
   end
 

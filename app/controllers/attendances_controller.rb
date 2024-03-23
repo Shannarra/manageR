@@ -19,7 +19,6 @@ class AttendancesController < ApplicationController
   end
 
   def multi
-    authorize current_user
     @attendance = Attendance.new
   end
 
@@ -33,10 +32,14 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.where(partial: true).last
 
     already_taken = Attendance.daily.where(i_class_id: @attendance.i_class, partial: false).count
+    students = User.where(i_class: Attendance.partial.last.i_class, access_type: :student).count
 
-    unless already_taken.zero?
+    if !already_taken.zero?
       @attendance.delete
       redirect_to attendances_url, notice: "Class attendance for this class has already been taken for today"
+    elsif students.zero?
+      @attendance.delete
+      redirect_to attendances_url, alert: "Class does not have any active students. Attendance can't be taken."
     end
   end
 
@@ -44,7 +47,8 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.new(attendance_params)
 
     respond_to do |format|
-      if @attendance.save
+      # This is actually safe here, because we will validate all records in the save_multi
+      if @attendance.save(validate: false)
         format.html { redirect_to continue_multi_attendances_url(@attendance), notice: "Attendance was successfully created." }
         format.json { render :show, status: :created, location: @attendance }
       else

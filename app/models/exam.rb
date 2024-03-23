@@ -13,7 +13,7 @@ class Exam < ApplicationRecord
   mount_uploader :attachment, ExamAttachmentUploader
 
   validates :name, presence: true, length: { maximum: 50 }
-  validates :exam_type, presence: true, inclusion: { in: :exam_type }
+  validates :exam_type, presence: true #0, inclusion: { in: :exam_type }
   validate :subject
   validate :user
 

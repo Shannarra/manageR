@@ -8,7 +8,7 @@ export default class extends Controller {
         console.log('asdasd');
     }
 
-    remotesubmit() {
+    submit() {
         this.submitbtnTarget.click();
     }
 }

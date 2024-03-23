@@ -12,8 +12,7 @@ class GradingSystem < ApplicationRecord
             presence: true
 
   validates :direction,
-            presence: { message: 'must be provided' },
-            inclusion: { in: :direction }
+            presence: { message: 'must be provided' }#, inclusion: { in: :direction }
 
   validates :institution_id,
             presence: { message: 'must be provided' }

@@ -7,6 +7,6 @@ FactoryBot.define do
     direction { :positive }
     description { "Test desc" }
     # possible_grades { "MyString" } #should autogen
-    institution_id { Institution.first }
+    institution_id { create(:institution).id }
   end
 end

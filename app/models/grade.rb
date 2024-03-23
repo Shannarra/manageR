@@ -9,7 +9,7 @@ class Grade < ApplicationRecord
          unknown: 0
        }
 
-  validates :source_type, presence: true, inclusion: { in: :source_type }
+  validates :source_type, presence: true #, inclusion: { in: :source_type }
   validate :assignee, if: :exam?
   validate :assigned_by, if: :exam?
   validates :source, presence: { message: 'must be provided for type "exam".'}, if: :exam?

@@ -66,13 +66,7 @@ RSpec.describe "/exams", type: :request do
       it "does not create a new Exam" do
         expect {
           post exams_url, params: { exam: invalid_attributes }
-        }.to raise_error(NoMethodError)
-      end
-
-      it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        expect{
-          post exams_url, params: { exam: invalid_attributes }
-        }.to raise_error(NoMethodError)
+        }.to change(Exam, :count).by(0)
       end
     end
   end

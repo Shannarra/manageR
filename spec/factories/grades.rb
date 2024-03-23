@@ -3,7 +3,7 @@ FactoryBot.define do
     value { 4 }
     reason { "MyString" }
     source_type { :regular }
-    assignee { build(:user, institution: create(:institution)) }
-    assigned_by { build(:user, institution: Institution.last) }
+    assignee { build(:user, institution: build(:institution, id: 1)) }
+    assigned_by { build(:user, institution: build(:institution, id: 1)) }
   end
 end

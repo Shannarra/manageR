@@ -30,10 +30,11 @@
         <%= form.text_area :description, class: 'form-control textarea col-md-4 flex', autofocus: true, autocomplete: "description", rows: 20 %>
       </div>      
     </div>
+    <%= form.hidden_field :institution_id, {value: institution.id } %>
 
     <div class="row px-5 py-2">
       <div class="actions form-group pt-4 col-md">
-        <%= form.submit "Update", class: 'btn btn-success w-100' %>
+        <%= form.submit institution ? "Create new class" : "Update", class: 'btn btn-success w-100' %>
       </div>
     </div>
 

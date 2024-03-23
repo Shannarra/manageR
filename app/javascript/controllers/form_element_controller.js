@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-    static targets = ["submitbtn"]
+    static targets = ["submitbtn"];
 
     connect() {
         this.submitbtnTarget.hidden = true;
@@ -9,6 +9,7 @@ export default class extends Controller {
     }
 
     remotesubmit() {
+        throw new Error('adsasd');
         console.log('gere');
         this.submitbtnTarget.click();
     }

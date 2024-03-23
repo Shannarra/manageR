@@ -26,13 +26,17 @@ Rails.application.routes.draw do
     end
     member do
       get :show
-      resources :i_classes, path: 'classes', as: 'classes', param: :class_id, only: :show do
+      resources :i_classes, path: 'classes', as: 'classes', param: :class_id do
+
         collection do
           get :manage
         end
         member do
+          get 'create_new', to: 'i_classes#new'
+          get :show
           get :edit
           patch :update
+          post :create
 
           resources :subjects, path: 'subjects', as: 'subjects', param: :subject_id
         end

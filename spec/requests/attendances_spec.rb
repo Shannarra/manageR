@@ -52,6 +52,28 @@ RSpec.describe "/attendances", type: :request do
       end
     end
 
+    context 'when a similar one exists' do
+      let(:teacher) { build(:user, access_type: :teacher) }
+      let(:student) { build(:user, access_type: :student) }
+      let(:klass) { build(:i_class) }
+
+      before do
+        Attendance.create!(teacher: teacher, student: student, i_class: klass, attendance_type: :present)
+      end
+
+      it 'is handled correctly' do
+        expect(Attendance.count).to eq 1
+        # we have an attendance
+        # so when we try creating new one force
+        # the same student and class we should
+        # not be able to do so
+        expect {
+          post attendances_url, params: { attendance: { teacher: teacher, student: student, i_class: klass, attendance_type: :absent } }
+        }.not_to change { Attendance.count }.from(1)
+      end
+    end
+
+
     context "with invalid parameters" do
       it "does not create a new Attendance" do
         expect {
