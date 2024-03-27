@@ -9,6 +9,6 @@
     <p class="card-text">
       <%= klass.description %>
     </p>
-    <%= link_to 'Visit class', class_url(class_id: klass), class: "btn btn-primary" %>
+    <%= link_to 'Visit class', class_url(institution_id: institution, class_id: klass.id), class: "btn btn-primary" %>
   </div>
 </div>
