@@ -21,6 +21,19 @@ RSpec.describe "institutions/show" do
     end
   end
 
+  context 'renders hidden fields' do
+    let(:user) { fabricate_user(:director) }
+
+    before do
+      sign_in_user user
+      render
+    end
+
+    it 'for people with correct access' do
+      expect(rendered).to have_link "Create a new class"
+    end
+  end
+
   context 'renders partial "class" correctly' do
     let(:klass) { build(:i_class, institution: institution, id: 0) }
 

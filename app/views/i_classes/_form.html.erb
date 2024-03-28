@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="flex-nowrap justify-content-center">
-    <%= form_with(model: klass, url: class_path) do |form| %>
+    <%= form_with(model: klass, url: class_path(institution_id: institution, class_id: klass)) do |form| %>
     <% if klass.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(klass.errors.count, "error") %> prohibited this class from being saved:</h2>
@@ -37,8 +37,6 @@
         <%= form.submit institution ? "Create new class" : "Update", class: 'btn btn-success w-100' %>
       </div>
     </div>
-
     <% end %>
-
   </div>
 </div>

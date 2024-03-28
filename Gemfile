@@ -85,6 +85,7 @@ group :development, :test do
   gem "faker"
   gem "pry"
   gem "rails_live_reload"
+  gem "rspec-html-matchers"
   gem "rspec-rails"
   gem "rubocop-rspec"
 end

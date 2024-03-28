@@ -1,12 +1,12 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>I classes</h1>
+<h1>Institution classes</h1>
 
 <div id="i_classes">
   <% @i_classes.each do |i_class| %>
     <%= render i_class %>
     <p>
-      <%= link_to "Show this institution class", class_path(id: i_class.id, institution_id: i_class.institution.id) %>
+      <%= link_to "Show this institution class", class_path(class_id: i_class.id, institution_id: i_class.institution.id) %>
     </p>
   <% end %>
 </div>
