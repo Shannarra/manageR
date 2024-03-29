@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  authenticated :user do
+    root to: 'institutions#index', as: :authenticated_user
+  end
+
   root 'welcome#index'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
