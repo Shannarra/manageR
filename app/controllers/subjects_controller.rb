@@ -2,7 +2,7 @@ class SubjectsController < ApplicationController
   before_action :set_subject, only: %i[ show edit update destroy ]
 
   def possible_subjects
-    IClass.includes(:subjects).find(params[:class_id]).subjects
+    IClass.includes(:subjects).find_by_name(params[:class_name]).subjects
   end
 
   # GET /subjects or /subjects.json
@@ -49,7 +49,8 @@ class SubjectsController < ApplicationController
 
     respond_to do |format|
       if @subject.update(subject_params)
-        format.html { redirect_to institution_url(current_user.institution.id), notice: "Subject was successfully updated." }
+        format.html { redirect_to institution_url(institution_name: current_user.institution.name),
+                                  notice: "Subject was successfully updated." }
         format.json { render :show, status: :ok, location: @subject }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -77,7 +78,7 @@ class SubjectsController < ApplicationController
     # without something along the lines of multi-tenancy.
     def set_subject
       current_institution = Institution.includes(:i_classes).find(current_user.institution.id)
-      klass = current_institution.i_classes.find(params[:class_id])
+      klass = current_institution.i_classes.find_by_name(params[:class_name])
       subject_id = params[:subject_id]
       @subject = possible_subjects.find(subject_id)
     rescue ActiveRecord::RecordNotFound

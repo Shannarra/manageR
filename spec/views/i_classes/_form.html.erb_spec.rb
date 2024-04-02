@@ -14,7 +14,7 @@ RSpec.describe "i_classes/_form" do
 
   context 'renders correctly' do
     it 'with all fields nessessary' do
-      expect(rendered).to have_tag 'form', with: { action: class_path(institution_name: institution.name, class_id: klass) } do
+      expect(rendered).to have_tag 'form', with: { action: class_path(institution_name: institution.name, class_name: klass.name) } do
         with_tag 'input', with: { type: :text, maxlength: 50, name: "i_class[name]" }
         with_tag 'input', with: { type: :text, maxlength: 50, name: "i_class[year]" }
         with_tag 'textarea', with: { rows: 20, name: "i_class[description]" }

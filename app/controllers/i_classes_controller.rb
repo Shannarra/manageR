@@ -23,7 +23,7 @@ class IClassesController < ApplicationController
     name = params[:search] || ""
 
     @klasses = IClass
-                 .where(institution_name: current_institution_name)
+                 .where(institution: current_user.institution)
                  .where('name ilike ?', "%#{name}%")
                  .order(name: :asc)
                  .page(params[:page])
@@ -61,7 +61,7 @@ class IClassesController < ApplicationController
   def update
     respond_to do |format|
       if @i_class.update(i_class_params)
-        format.html { redirect_to class_url(id: @i_class), notice: "I class was successfully updated." }
+        format.html { redirect_to class_url(class_name: @i_class.name), notice: "I class was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -81,8 +81,8 @@ class IClassesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_i_class
       institution = Institution.find_by_name(params[:institution_name])
-      class_id = params[:class_id]
-      @i_class = possible_classes.find(class_id)
+      klass = params[:class_name]
+      @i_class = possible_classes.find_by_name(klass)
     rescue ActiveRecord::RecordNotFound
       respond_to do |format|
         format.html { redirect_to institution_url, alert: "Class does not exist for your institution." }

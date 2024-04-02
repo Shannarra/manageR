@@ -6,7 +6,7 @@
   <% @i_classes.each do |i_class| %>
     <%= render i_class %>
     <p>
-      <%= link_to "Show this institution class", class_path(class_id: i_class.id, institution_name: i_class.institution.name) %>
+      <%= link_to "Show this institution class", class_path(class_name: i_class.name, institution_name: i_class.institution.name) %>
     </p>
   <% end %>
 </div>

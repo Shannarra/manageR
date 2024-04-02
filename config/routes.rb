@@ -30,8 +30,7 @@ Rails.application.routes.draw do
     end
     member do
       get :show
-      resources :i_classes, path: 'classes', as: 'classes', param: :class_id do
-
+      resources :i_classes, path: 'classes', as: 'classes', param: :class_name do
         collection do
           get :manage
         end
