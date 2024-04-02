@@ -8,6 +8,14 @@
 
 <div id="exams">
   <% @exams.each do |exam| %>
-    <%= render exam %>
+  <div class="col-md-8 mx-auto">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <%= render exam %>
+        </div>
+      </div>
+    </div>
+  </div>
   <% end %>
 </div>

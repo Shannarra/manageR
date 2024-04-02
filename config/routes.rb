@@ -14,7 +14,7 @@ Rails.application.routes.draw do
                registrations: :registrations
              }
 
-  resources :users do
+  resources :users, except: %i[index] do
     collection do
       get :my_profile
       get :manage

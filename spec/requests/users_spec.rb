@@ -5,7 +5,7 @@ RSpec.describe "Users", type: :request do
 
   describe "trying to access content when not logged in" do
     it 'trying to access /users redirects to sign_in' do
-      get users_path
+      get manage_users_path
       expect(response.code).to eq '302' # :found
       expect(response).to redirect_to(new_user_session_path)
     end
@@ -30,7 +30,7 @@ RSpec.describe "Users", type: :request do
 
     it 'can access /users' do
       get users_path
-      expect(response).to be_successful
+      expect(response).not_to be_successful
     end
 
     it 'can access /users/:{id} successfully' do
