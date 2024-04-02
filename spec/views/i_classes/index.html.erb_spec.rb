@@ -24,7 +24,7 @@ RSpec.describe "i_classes/index" do
       expect(rendered).to have_selector('h2', text: klass.name)
       expect(rendered).to have_selector('h6', text: "Study Year: #{klass.year}")
       expect(rendered).to have_selector('div', text: klass.description, class: 'text-roboto')
-      expect(rendered).to have_link('Visit class subjects', href: subjects_url(institution_id: klass.institution.id, class_id: klass))
+      expect(rendered).to have_link('Visit class subjects', href: subjects_url(institution_name: klass.institution.name, class_id: klass))
     end
 
     it 'hides edit link for users without access' do

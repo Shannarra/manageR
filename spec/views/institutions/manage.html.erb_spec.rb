@@ -33,7 +33,7 @@ RSpec.describe "institutions/manage" do
 
         it 'with correct data for each row' do
           institutions.each do |institution|
-            expect(rendered).to have_tag 'a', text: institution.name, href: institution_url(institution_id: institution)
+            expect(rendered).to have_tag 'a', text: institution.name, href: institution_url(institution_name: institution.name)
 
             expect(rendered).to have_content institution.location
             expect(rendered).to have_content institution.code

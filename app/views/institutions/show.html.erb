@@ -8,7 +8,7 @@
     <h6 class='d-flex justify-content-center'>Location: <%= @institution.location %></h6>
     <div class='d-flex justify-content-center'>
     <% if current_user.has_elevated_privileges? %>
-    <%= link_to '+ Create a new class', create_new_class_path(institution_id: institution, class_id: 0), class: 'btn btn-success' %>
+    <%= link_to '+ Create a new class', create_new_class_path(institution_name: institution.name, class_id: 0), class: 'btn btn-success' %>
     <% end %>
     </div>
     <div class="col col-md-8 p-5 mx-auto">

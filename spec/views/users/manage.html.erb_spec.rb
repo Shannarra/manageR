@@ -44,7 +44,7 @@ RSpec.describe "users/manage" do
 
             expect(rendered).to have_tag 'a',
                                          text: user.institution.name,
-                                         href: institution_url(institution_id: user.institution.id)
+                                         href: institution_url(institution_name: user.institution.name)
 
             expect(rendered).to have_tag 'a',
                                          text: 'Edit',

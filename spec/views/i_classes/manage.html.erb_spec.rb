@@ -35,12 +35,12 @@ RSpec.describe "i_classes/manage" do
           i_classes.each do |i_class|
             expect(rendered).to have_tag 'a',
                                          text: i_class.name,
-                                         href: class_url(institution_id: i_class.institution_id, class_id: i_class)
+                                         href: class_url(institution_name: i_class.institution.name, class_id: i_class)
 
             expect(rendered).to have_content i_class.year
             expect(rendered).to have_tag 'a',
                                          text: 'Edit this class',
-                                         href: edit_class_url(institution_id: i_class.institution_id, class_id: i_class)
+                                         href: edit_class_url(institution_name: i_class.institution.name, class_id: i_class)
           end
         end
       end

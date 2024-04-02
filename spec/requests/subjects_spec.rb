@@ -33,14 +33,14 @@ RSpec.describe "/subjects", type: :request do
   describe "GET /index" do
     it "renders a successful response" do
       Subject.create! valid_attributes
-      get subjects_url(institution_id: 1, class_id: IClass.first)
+      get subjects_url(institution_name: Institution.first.name, class_id: IClass.first)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_subject_url(class_id: 0, institution_id: 0)
+      get new_subject_url(class_id: 0, institution_name: Institution.first.name)
       expect(response).to_not be_successful
     end
   end
@@ -49,12 +49,12 @@ RSpec.describe "/subjects", type: :request do
     context "with invalid parameters" do
       it "does not create a new Subject" do
         expect {
-          post subjects_url(class_id: 0, institution_id: 0), params: { subject: invalid_attributes }
+          post subjects_url(class_id: 0, institution_name: Institution.first.name), params: { subject: invalid_attributes }
         }.to change(Subject, :count).by(0)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post subjects_url(class_id: 0, institution_id: 0), params: { subject: invalid_attributes }
+        post subjects_url(class_id: 0, institution_name: Institution.first.name), params: { subject: invalid_attributes }
         expect(response).to have_http_status(:found)
       end
     end
@@ -68,7 +68,7 @@ RSpec.describe "/subjects", type: :request do
 
       it "redirects to the subject" do
         subject = Subject.create! valid_attributes
-        patch subject_url(class_id: 0, institution_id: 0, subject_id: subject), params: { subject: new_attributes }
+        patch subject_url(class_id: 0, institution_name: Institution.first.name, subject_id: subject), params: { subject: new_attributes }
         subject.reload
 
         expect(response).to have_http_status(:found)
@@ -78,7 +78,8 @@ RSpec.describe "/subjects", type: :request do
     context "with invalid parameters" do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
         subject = Subject.create! valid_attributes
-        patch subject_url(class_id: 0, institution_id: 0, subject_id: subject), params: { subject: invalid_attributes }
+        patch subject_url(class_id: 0, institution_name: Institution.first.name, subject_id: subject),
+              params: { subject: invalid_attributes }
         expect(response).to have_http_status(:found)
       end
     end

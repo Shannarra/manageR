@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="flex-nowrap justify-content-center">
-    <%= form_with(model: klass, url: class_path(institution_id: institution, class_id: klass)) do |form| %>
+    <%= form_with(model: klass, url: class_path(institution_name: institution.name, class_id: klass)) do |form| %>
     <% if klass.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(klass.errors.count, "error") %> prohibited this class from being saved:</h2>

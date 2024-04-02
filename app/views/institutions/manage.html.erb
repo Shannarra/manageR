@@ -24,7 +24,7 @@
       </thead>
       <% @institutions.each do |institution| %>
       <tr class="table-row" scope="row">
-        <td><%= link_to institution.name, institution_url(institution_id: institution) %></td>
+        <td><%= link_to institution.name, institution_url(institution_name: institution.name) %></td>
         <td><%= institution.location %></td>
         <td><%= institution.code %></td>
       </tr>

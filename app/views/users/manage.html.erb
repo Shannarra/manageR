@@ -32,7 +32,7 @@
         <td><%= link_to user.name, user %></td>
         <td><%= user.email %></td>
         <td><%= user.access_type %></td>
-        <td><%= link_to user.institution.name, user.institution %></td>
+        <td><%= link_to user.institution.name, institution_url(institution_name: user.institution.name) %></td>
         <% if current_user.has_elevated_privileges? %>
         
           <td><%= link_to 'Edit', edit_user_path(user), class: 'link' %></td>

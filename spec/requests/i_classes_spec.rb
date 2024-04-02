@@ -29,7 +29,7 @@ RSpec.describe "/classes", type: :request do
     describe "GET /index" do
       it "renders an unsuccessful response" do
         klass = IClass.create! valid_attributes
-        get class_url institution_id: klass.institution_id, class_id: klass.id
+        get class_url institution_name: klass.institution.name, class_id: klass.id
         expect(response).to_not be_successful
       end
     end
@@ -37,14 +37,14 @@ RSpec.describe "/classes", type: :request do
     describe "GET /show" do
       it "renders an unsuccessful response" do
         klass = IClass.create! valid_attributes
-        get class_url(class_id: klass.id, institution_id: klass.institution_id)
+        get class_url(class_id: klass.id, institution_name: klass.institution.name)
         expect(response).to_not be_successful
       end
     end
 
     describe "GET /new" do
       it "renders an unsuccessful response" do
-        get class_url(institution_id: 0, class_id: 0)
+        get class_url(institution_name: 0, class_id: 0)
         expect(response).to_not be_successful
       end
     end
@@ -52,7 +52,7 @@ RSpec.describe "/classes", type: :request do
     describe "GET /edit" do
       it "renders a successful response" do
         klass = IClass.create! valid_attributes
-        get edit_class_url(class_id: klass.id, institution_id: klass.institution_id)
+        get edit_class_url(class_id: klass.id, institution_name: klass.institution.name)
         expect(response).to_not be_successful
       end
     end

@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :institutions, param: :institution_id do
+  resources :institutions, param: :institution_name do
     collection do
       get :manage
     end

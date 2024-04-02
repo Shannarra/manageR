@@ -9,12 +9,12 @@ class IClassesController < ApplicationController
   def possible_classes
     Institution
       .includes(:i_classes)
-      .find(current_institution_id)
+      .find_by_name(current_institution_name)
       .i_classes
   end
 
-  def current_institution_id
-    params[:institution_id] || current_user.institution.id
+  def current_institution_name
+    params[:institution_name] || current_user.institution.name
   end
 
   def manage
@@ -23,7 +23,7 @@ class IClassesController < ApplicationController
     name = params[:search] || ""
 
     @klasses = IClass
-                 .where(institution_id: current_institution_id)
+                 .where(institution_name: current_institution_name)
                  .where('name ilike ?', "%#{name}%")
                  .order(name: :asc)
                  .page(params[:page])
@@ -80,7 +80,7 @@ class IClassesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_i_class
-      institution = Institution.find(params[:institution_id])
+      institution = Institution.find_by_name(params[:institution_name])
       class_id = params[:class_id]
       @i_class = possible_classes.find(class_id)
     rescue ActiveRecord::RecordNotFound
@@ -91,6 +91,6 @@ class IClassesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def i_class_params
-      params.require(:i_class).permit(:name, :year, :description, :institution_id)
+      params.require(:i_class).permit(:name, :year, :description, :institution_name)
     end
 end
