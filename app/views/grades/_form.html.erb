@@ -22,7 +22,7 @@
         <div id="update-continue"></div>
         <div>
           <%= form.label :source_type %><br />
-          <%= form.select :source_type, Grade.types, {include_blank: true, {class: 'form-select form-select col-md-4' } %>
+          <%= form.select :source_type, Grade.types, {include_blank: true }, {class: 'form-select form-select col-md-4' } %>
         </div>
       </div>
     </div>
@@ -60,9 +60,9 @@
     <div class="row px-5 py-2">
       <div class="actions form-group pt-4 col-md">
         <% if !@filled %>
-        <%= form.submit "Continue", formaction: action_path, formmethod: :get, data: { turbo_frame: :source_id }, class: 'btn btn-success w-100' %>
+        <%= form.submit "Continue", formaction: action_path, formmethod: :get, class: 'btn btn-success w-100' %>
         <% else %>
-        <%= form.submit "Submit!", class: "btn btn-success col-md w-100"%>
+        <%= form.submit "Submit!", class: "btn btn-success col-md w-100" %>
         <% end %>
       </div>
     </div>
