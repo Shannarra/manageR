@@ -1,6 +1,6 @@
 namespace :db do
   task seed_prod: :environment do
-    if Rails.env.production?
+    unless Rails.env.production?
       puts "[ERROR] db:seed_prod must be run ONLY on prod."
 
       exit(1)
