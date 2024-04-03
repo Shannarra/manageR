@@ -13,8 +13,8 @@
           <%= link_to 'My subjects', subjects_url(institution_name: institution.name, class_name: current_user.i_class.name), class:"nav-link partial-link" %>
         </li>
         
-        <% if current_user.can_grade? %>
         <li class="nav-item dropdown">
+          <% if current_user.can_grade? %>
           <a class="nav-link partial-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Attendance
           </a>
@@ -23,8 +23,10 @@
             <li><%=link_to("Take attendance of student", new_attendance_url, { class: "nav-link dropdown-item" }) %></li>
             <li><%=link_to("Take attendance of class", multi_attendances_url, { class: "nav-link dropdown-item" }) %></li>
           </ul>
+          <% else %>
+          <%= link_to 'My attendance', attendances_url, class:"nav-link partial-link" %>
+          <% end %>
         </li>
-        <% end %>
         <li class="nav-item dropdown">
           <a class="nav-link partial-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             My classes

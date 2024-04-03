@@ -49,6 +49,7 @@ Rails.application.routes.draw do
 
   resources :attendances do
     collection do
+      get :mine
       get :multi
       post :start_multi
 

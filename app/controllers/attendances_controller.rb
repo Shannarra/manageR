@@ -4,11 +4,19 @@ class AttendancesController < ApplicationController
   # GET /attendances or /attendances.json
   def index
     @attendances = Attendance.for_institution(current_user.institution).per_class
+
+    redirect_to mine_attendances_url unless current_user.can_grade?
     #authorize @attendances
   end
 
   # GET /attendances/1 or /attendances/1.json
   def show
+  end
+
+  def mine
+    @attendances = Attendance
+                     .for_institution(current_user.institution)
+                     .where(student_id: current_user.id)
   end
 
   # GET /attendances/new
