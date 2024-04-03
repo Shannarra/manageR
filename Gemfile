@@ -80,9 +80,11 @@ gem 'activeadmin' # Remember to add '*= stub "active_admin" ' to application.scs
 # File uploaders associated with models
 gem 'carrierwave'
 
+# Generating fake data. Usually useful only on :development and :test group, but I need it to seed the prod data easily.
+gem "faker"
+
 group :development, :test do
   gem "factory_bot_rails"
-  gem "faker"
   gem "pry"
   gem "rails_live_reload"
   gem "rspec-html-matchers"
