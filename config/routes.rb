@@ -33,9 +33,9 @@ Rails.application.routes.draw do
       resources :i_classes, path: 'classes', as: 'classes', param: :class_name do
         collection do
           get :manage
+          get 'create_new', to: 'i_classes#new'
         end
         member do
-          get 'create_new', to: 'i_classes#new'
           get :show
           get :edit
           patch :update

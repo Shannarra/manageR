@@ -11,6 +11,11 @@ class RegistrationsController < Devise::RegistrationsController
     super
   end
 
+  protected
+  def after_update_path_for(resource)
+    institutions_url
+  end
+
   private
   def disable_registration!
     redirect_to new_user_session_path, notice: 'Registrations are disabled. Please log in with your institution-provided credentials.'
