@@ -29,6 +29,10 @@ Rails.application.routes.draw do
       get :manage
     end
     member do
+      resources :reports, path: 'reports', as: 'reports', param: :report_id do
+
+      end
+
       get :show
       resources :i_classes, path: 'classes', as: 'classes', param: :class_name do
         collection do
@@ -44,6 +48,8 @@ Rails.application.routes.draw do
           resources :subjects, path: 'subjects', as: 'subjects', param: :subject_id
         end
       end
+
+
     end
   end
 

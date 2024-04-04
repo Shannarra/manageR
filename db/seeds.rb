@@ -49,7 +49,7 @@ end
 
 6.times do
   Subject.create!(
-    name: 'Test subject',
+    name: Faker::Educator.subject,
     year: (1..5).to_a.sample,
     description: Faker::Lorem.paragraphs(
       number: rand(5..50),

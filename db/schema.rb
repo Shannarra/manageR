@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_12_112500) do
+# rubocop:disable Metrics/BlockLength
+ActiveRecord::Schema[7.0].define(version: 2024_04_04_065611) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -147,7 +148,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_12_112500) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "code", default: "LR9dWXG7Q0jYft6NsiZq"
+    t.string "code", default: "rR4RDEFYdpj7Th1o8AFJ"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string "name"
+    t.integer "creation_scope", default: 0, null: false
+    t.bigint "institution_id", null: false
+    t.bigint "by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["by_id"], name: "index_reports_on_by_id"
+    t.index ["institution_id"], name: "index_reports_on_institution_id"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -196,8 +208,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_12_112500) do
   add_foreign_key "grades", "users", column: "assignee_id"
   add_foreign_key "grading_systems", "institutions"
   add_foreign_key "i_classes", "institutions"
+  add_foreign_key "reports", "institutions"
+  add_foreign_key "reports", "users", column: "by_id"
   add_foreign_key "subjects", "i_classes"
   add_foreign_key "subjects", "users"
   add_foreign_key "users", "i_classes"
   add_foreign_key "users", "institutions"
 end
+# rubocop:enable Metrics/BlockLength
