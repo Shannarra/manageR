@@ -84,14 +84,14 @@ Naming/ClassAndModuleCamelCase:
   Enabled: true
 
 Metrics/AbcSize:
-  Max: 100
-Metrics/CyclomaticComplexity:
-  Max: 100
-Metrics/MethodLength:
   Max: 50
+Metrics/CyclomaticComplexity:
+  Max: 20
+Metrics/MethodLength:
+  Max: 30
 Metrics/BlockLength:
   Max: 100
 Metrics/PerceivedComplexity:
   Max: 50
 Layout/LineLength:
-  Max: 140
+  Max: 130

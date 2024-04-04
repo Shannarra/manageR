@@ -75,7 +75,8 @@ gem 'pundit'
 gem 'kaminari'
 
 # Admin panel pages
-gem 'activeadmin' # Remember to add '*= stub "active_admin" ' to application.scss to localy scope AA CSS from clashing with Bootstrap
+# Remember to add '*= stub "active_admin" ' to application.scss to localy scope AA CSS from clashing with Bootstrap
+gem 'activeadmin'
 
 # File uploaders associated with models
 gem 'carrierwave'

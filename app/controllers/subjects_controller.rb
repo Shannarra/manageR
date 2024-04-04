@@ -105,7 +105,8 @@ class SubjectsController < ApplicationController
         end
       rescue ActiveRecord::RecordNotFound
         respond_to do |format|
-          format.html { redirect_to institution_url(current_user.institution), alert: 'Couldn\'t find a subject you were looking for.' }
+          format.html { redirect_to institution_url(current_user.institution),
+                                    alert: 'Couldn\'t find a subject you were looking for.' }
         end
       end
     end

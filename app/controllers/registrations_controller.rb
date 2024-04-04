@@ -18,6 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
   def disable_registration!
-    redirect_to new_user_session_path, notice: 'Registrations are disabled. Please log in with your institution-provided credentials.'
+    redirect_to new_user_session_path,
+                notice: 'Registrations are disabled. Please log in with your institution-provided credentials.'
   end
 end

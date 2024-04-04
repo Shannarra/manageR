@@ -68,7 +68,11 @@ RSpec.describe "/attendances", type: :request do
         # the same student and class we should
         # not be able to do so
         expect {
-          post attendances_url, params: { attendance: { teacher: teacher, student: student, i_class: klass, attendance_type: :absent } }
+          post attendances_url, params: {
+                 attendance: {
+                   teacher: teacher, student: student, i_class: klass, attendance_type: :absent
+                 }
+               }
         }.not_to change { Attendance.count }.from(1)
       end
     end
