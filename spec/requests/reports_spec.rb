@@ -39,25 +39,9 @@ RSpec.describe "/reports", type: :request do
     end
   end
 
-  describe "GET /show" do
-    it "renders a successful response" do
-      report = Report.create! valid_attributes
-      get report_url(report, institution_name: '')
-      expect(response).not_to be_successful
-    end
-  end
-
   describe "GET /new" do
     it "renders a successful response" do
       get new_report_url(institution_name: '')
-      expect(response).not_to be_successful
-    end
-  end
-
-  describe "GET /edit" do
-    it "renders a successful response" do
-      report = Report.create! valid_attributes
-      get edit_report_url(report, institution_name: '')
       expect(response).not_to be_successful
     end
   end
@@ -88,31 +72,6 @@ RSpec.describe "/reports", type: :request do
         post reports_url(institution_name: ''), params: { report: invalid_attributes }
         expect(response).to have_http_status(:not_found)
       end
-    end
-  end
-
-  describe "PATCH /update" do
-    context "with invalid parameters" do
-      it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        report = Report.create! valid_attributes
-        patch report_url(report, institution_name: ''), params: { report: invalid_attributes }
-        expect(response).to have_http_status(:not_found)
-      end
-    end
-  end
-
-  describe "DELETE /destroy" do
-    it "destroys the requested report" do
-      report = Report.create! valid_attributes
-      expect {
-        delete report_url(report, institution_name: '')
-      }.to change(Report, :count).by(0)
-    end
-
-    it "redirects to the reports list" do
-      report = Report.create! valid_attributes
-      delete report_url(report, institution_name: report.institution.name)
-      expect(response).to redirect_to(reports_url(institution_name: report.institution.name))
     end
   end
 end

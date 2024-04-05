@@ -1,10 +1,12 @@
 <h1 class='d-flex justify-content-center'>Subjects</h1>
 
 <% if @subjects.count != 0 %>
-<h2 class='d-flex justify-content-center'>
+  <% if current_user.can_grade? %>
+  <h2 class='d-flex justify-content-center'>
     <%= link_to "+ Add a new subject", new_subject_path, class: 'btn btn-success' %>
-</h2>
-<% end%>
+  </h2>
+  <% end %>
+<% end %>
 <div id="subjects">
   <% if @subjects.count == 0 %>
   <h2 class='justify-content-center'>

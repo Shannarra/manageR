@@ -1,22 +1,17 @@
-<h1>Reports</h1>
+<h1 class="text-center">
+  Reports
+  <p>
+    <%= link_to "+ New report", new_report_path, class: 'btn btn-success' %>
+  </p>
+</h1>
 
-<!-- <div id="reports"> -->
-<!--   <% @reports.each do |report| %> -->
-<!--     <%= render report %> -->
-<!--     <p> -->
-<!--       <%= link_to "Show this report", report_url(institution_name: institution.name, report_id: report.id) %> -->
-<!--     </p> -->
-<!--   <% end %> -->
-<!-- </div> -->
-
-<!-- <%= link_to "New report", new_report_path %> -->
-
-
+<% if @reports.count > 0 %>
 <div class="table-responsive">
   <table class="table table-bordered table-hover" >
     <thead>
       <tr>
         <th scope="col">Name</th>
+        <th scope="col">Format</th>
         <th scope="col">For</th>
         <th scope="col">Created by</th>
         <th scope="col">Created on</th>
@@ -25,7 +20,8 @@
     </thead>
     <% @reports.each do |report| %>
     <tr class="table-row" scope="row">
-      <td><%= link_to report.name, report_url(report_id: report.id) %></td>
+      <td><%= report.name %></td>
+      <td><%= report.format %></td>
       <td><%= report.creation_scope %></td>
       <td><%= link_to report.by.name, user_url(report.by) %></td>
       <td><%= report.created_at.strftime("%d %B %Y") %></td>
@@ -33,3 +29,10 @@
     </tr>
     <% end %>
   </table>
+<% else %>
+  <div class="row">
+    <div class="mx-auto text-center pt-5">
+      <h1>No reports created yet</h1>
+    </div>
+  </div>
+<% end %>

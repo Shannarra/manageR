@@ -28,7 +28,7 @@ class ReportsController < ApplicationController
     respond_to do |format|
       if @report.save
         format.html {
- redirect_to reports_url(@report, institution_name: @report.institution.name), notice: "Report was successfully created." }
+ redirect_to reports_url(@report, institution_name: @report.institution.name), notice: "Report was successfully requested." }
         format.json { render :show, status: :created, location: @report }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -69,10 +69,13 @@ class ReportsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def report_params
-      params.require(:report).permit(:name, :institution_id, :creation_scope, :by_id)
+      params.require(:report).permit(:name, :institution_id, :creation_scope, :by_id, :format)
     end
 
     def sanitize_params
-      params[:report][:creation_scope] = params[:report][:creation_scope].to_i if params[:report]
+      if params[:report]
+        params[:report][:creation_scope] = params[:report][:creation_scope].to_i
+        params[:report][:format] = params[:report][:format].to_i
+      end
     end
 end

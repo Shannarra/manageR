@@ -1,38 +1,55 @@
-<%= form_with(model: report, report_id: report) do |form| %>
-  <% if report.errors.any? %>
+<div class="container-fluid">
+  <div class="flex-nowrap justify-content-center">
+    <%= form_with(model: report, report_id: report) do |form| %>
+    <% if report.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(report.errors.count, "error") %> prohibited this report from being saved:</h2>
 
       <ul>
         <% report.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
-  <% end %>
+    <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
+    <div class="row col-md px-5">
+      <div class="form-group col-md-6 pt-5">
+        <%= form.label :name, style: "display: block" %>
+        <%= form.text_field :name, class: 'form-control col-md-12', required: true, maxlength: 50 %>
+      </div>
 
-  <div>
-    <%#= form.label :institution_id, style: "display: block" %>
-    <%= form.hidden_field :institution_id, { value: current_user.institution.id } %>
-  </div>
+      
+      <div class="form-group col-md-6 pt-5">
+        <%= form.label :format, style: "display: block" %>
+        <%= form.select :format, Report.formats, {selected: 0}, { class: 'form-select form-select col-md-5' } %>
+      </div>
+    </div>
 
-  <div>
-    <%= form.label :creation_scope, style: "display: block" %>
-    <%= form.select :creation_scope, Report.creation_scopes.to_a %>
-  </div>
+    <div>
+      <%= form.hidden_field :institution_id, { value: current_user.institution.id } %>
+    </div>
 
-  <%#= throw Report.creation_scopes.to_a %>
-  <div>
-    <%= form.label :by_id, style: "display: block" %>
-    <%= form.select :by_id, select_options(User.all) %>
-  </div>
+    
+    <div class="row col-md px-5">
+      <div class="from-group col-md-6 pt-5">
+        <%= form.label :creation_scope, "I want a report for my", style: "display: block", class: 'from-label' %>
+        <%= form.select :creation_scope, report_request_scopes, {}, { class: 'form-select form-select col-md-5' } %>
+      </div>
 
-  <div>
-    <%= form.submit %>
+      <%#= throw Report.creation_scopes.to_a %>
+      <div class="form-group col-md pt-5">
+        <%= form.label :by_id, style: "display: block" %>
+        <%= form.select :by_id, select_options(User.all), {selected: current_user.id }, {class: 'form-select form-select col-md-4'} %>
+      </div>
+
+    </div>
+
+    <div class="row px-5 py-2">
+      <div class="actions form-group pt-4 col-md">
+        <%= form.submit "Request report", class: 'btn btn-success w-100' %>
+      </div>
+    </div>
+    <% end %>
   </div>
-<% end %>
+</div>

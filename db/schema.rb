@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_05_074118) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_05_092546) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -147,7 +147,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_05_074118) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "code", default: "rR4RDEFYdpj7Th1o8AFJ"
+    t.string "code", default: "ra5NsXvKj9kig1njBCIO"
   end
 
   create_table "reports", force: :cascade do |t|
@@ -158,6 +158,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_05_074118) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "state", default: 0
+    t.integer "format", default: 0
+    t.string "file"
     t.index ["by_id"], name: "index_reports_on_by_id"
     t.index ["institution_id"], name: "index_reports_on_institution_id"
   end

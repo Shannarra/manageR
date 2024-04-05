@@ -81,6 +81,9 @@ gem 'activeadmin'
 # File uploaders associated with models
 gem 'carrierwave'
 
+# Background workers
+gem 'sidekiq'
+
 # Generating fake data. Usually useful only on :development and :test group, but I need it to seed the prod data easily.
 gem "faker"
 
