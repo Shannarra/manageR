@@ -89,8 +89,6 @@
             <%= current_user&.name || "Username" %>
           </a>
           <ul class="dropdown-menu mx-2">
-
-            <li><%=link_to("New ...",    root_url, { class: "nav-link dropdown-item" }) %></li>
             <li><%=link_to("Edit profile", edit_user_registration_path, { class: "nav-link dropdown-item" }) %></li>
             <li><%=link_to("My profile", my_profile_users_path, { class: "nav-link dropdown-item" }) %></li>
             <li>
