@@ -25,7 +25,11 @@
       <td><%= report.creation_scope %></td>
       <td><%= link_to report.by.name, user_url(report.by) %></td>
       <td><%= report.created_at.strftime("%d %B %Y") %></td>
+      <% if !report.completed? %>
       <td><%= report.state %></td>
+      <% else %>
+      <td><%= link_to report.state, report.file.url %></td>
+      <% end %>
     </tr>
     <% end %>
   </table>

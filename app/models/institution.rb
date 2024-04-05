@@ -2,6 +2,7 @@ class Institution < ApplicationRecord
   has_many :users
   has_many :i_classes
   has_one :grading_system
+  has_many :subjects, through: :i_classes
 
   validates :name, presence: true
   validates :location, presence: true
