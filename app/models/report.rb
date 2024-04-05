@@ -22,7 +22,7 @@ class Report < ApplicationRecord
          json: 1,
          csv: 0,
        }
-  
+
   validates :creation_scope, presence: { message: 'must be selected' }
   validates :name, presence: { message: 'must be provided' }
 

@@ -1,10 +1,12 @@
 class CreateReportJob
   include Sidekiq::Job
 
+  FILENAME = "#{@report.created_at.strftime('%d %B %Y')}_#{@report.name}_#{@report.creation_scope}-#{@report.by.name}"
+
   def perform(report:)
     @report = report
     @report.update!(state: :in_progress)
-    
+
     file = case report.format
            when 'pdf' then generate_pdf
            when 'json' then generate_json
@@ -21,18 +23,18 @@ class CreateReportJob
   def generate_csv
     p 'generating csv'
 
-    f = File.new("report_#{@report.created_at.strftime('%d %B %Y')}_#{@report.name}_#{@report.creation_scope}-#{@report.by.name}.csv", 'w')
+    f = File.new("report_#{FILENAME}.csv", 'w')
   end
 
   def generate_json
     p 'generating json'
 
-    f = File.new("report_#{@report.created_at.strftime('%d %B %Y')}_#{@report.name}_#{@report.creation_scope}-#{@report.by.name}.json", 'w')
+    f = File.new("report_#{FILENAME}.json", 'w')
   end
 
   def generate_pdf
     p 'generating pdf'
 
-    f = File.new("report_#{@report.created_at.strftime('%d %B %Y')}_#{@report.name}_#{@report.creation_scope}-#{@report.by.name}.pdf", 'w')
+    f = File.new("report_#{FILENAME}.pdf", 'w')
   end
 end
