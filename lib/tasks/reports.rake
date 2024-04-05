@@ -10,4 +10,4 @@ namespace :reports do
       CreateReportJob.new.perform(report: request)
     end
   end
-end 
+end
