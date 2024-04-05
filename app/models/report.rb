@@ -9,6 +9,12 @@ class Report < ApplicationRecord
          unknown: 0,
        }
 
+  enum state: {
+         completed: 2,
+         in_progress: 1,
+         requested: 0,
+       }
+
   validates :creation_scope, presence: { message: 'must be selected' }
   validates :name, presence: { message: 'must be provided' }
 
