@@ -24,7 +24,7 @@ This app is a comprehensive school management system using Rails 7 with PostgreS
 - [x] [Attendance](./docs/attendance.md) tracking
 - [x] [Exams](./docs/exams.md) (with types: physical, online) and scheduling in the future
 - [x] [Grades](./docs/grading.md)
-- [x] [Reports](./docs/reports/md) (in PDF, CSV or JSON), including overall information for institution and all data the institution's management would need.
+- [x] [Reports](./docs/reports.md) (in PDF, CSV or JSON), including overall information for institution and all data the institution's management would need.
 
 ## Requirements
 
