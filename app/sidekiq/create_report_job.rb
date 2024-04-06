@@ -6,7 +6,7 @@ class CreateReportJob
     @report.update!(state: :in_progress)
 
     @report_date = @report.created_at.strftime('%d %B %Y')
-    @filename = "#{@report_date}_#{@report.name}_#{@report.creation_scope}-#{@report.by.name}"
+    @filename = @report.name || "report_#{@report_date}_#{@report.name}_#{@report.creation_scope}-#{@report.by.name}"
 
     generate_report_info!
 
@@ -89,9 +89,9 @@ class CreateReportJob
   end
 
   def generate_json
-    p 'generating json'
+    puts 'generating json'
 
-    f = File.new("report_#{@filename}.json", 'w')
+    f = File.new("#{@filename}.json", 'w')
 
     f.write({}.merge("#{@report.institution.name}": @info).to_json)
 

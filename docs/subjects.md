@@ -16,4 +16,4 @@ For now, all users that are a part of a class are a partaking into the classes' 
 ## Access
 All access to subjects and the information, constraint to them are subject to the rules described in the [authorization](./users/authorization.md) document.
 
-Subject are scoped to the class they are a part of, so for example, let's say we're part of institution with id = 56, and a class with id = 83, the way to access the classes' subjects would be `institutions/1/classes/1/subjects/`, the page will display all subjects related to the class. If you would want to see a specific subject, you can go to `institutions/:institution_id/classes/:class_id/subjects/:subject_id`.
+Subjects are scoped to the class they are a part of, so for example, let's say we're part of institution with id = 56, and a class with id = 83, the way to access the classes' subjects would be `institutions/1/classes/1/subjects/`, the page will display all subjects related to the class. If you would want to see a specific subject, you can go to `institutions/:institution_id/classes/:class_id/subjects/:subject_id`.

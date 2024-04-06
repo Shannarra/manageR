@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     raise unless error.is_a?(Pundit::NotAuthorizedError)
 
     respond_to do |format|
-      format.html { redirect_to root_url, alert: "You don't have access to this page." }
+      format.html { redirect_to institutions_url, alert: "You don't have access to this page." }
     end
   end
 end

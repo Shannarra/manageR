@@ -27,4 +27,5 @@ class Report < ApplicationRecord
   validates :name, presence: { message: 'must be provided' }
 
   scope :requested, -> { where(state: :requested) }
+  scope :for_institution, ->(institution) { where(institution: institution) }
 end

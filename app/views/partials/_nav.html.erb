@@ -50,6 +50,11 @@
         </li>
       </ul>
       <ul class="navbar-nav mb-2 mb-lg-0">
+        <% if current_user.can_grade? %>
+        <li class="nav-item">
+          <%= link_to 'Reports', reports_url(institution_name: institution.name), class:"nav-link partial-link" %>
+        </li>
+        <% end %>
         <li class="nav-item dropdown">
           <a class="nav-link partial-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Exams & Grades

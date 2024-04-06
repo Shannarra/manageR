@@ -8,9 +8,9 @@ class GenerateCsvReportJob
   end
 
   def generate_csv
-    p 'generating csv'
+    puts 'generating csv'
 
-    f = File.new("report_#{@filename}.csv", 'w')
+    f = File.new("#{@filename}.csv", 'w')
 
     report_csv = CSV.generate do |data|
       write_institution_info(data)

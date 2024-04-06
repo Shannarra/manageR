@@ -12,9 +12,9 @@ class GeneratePdfReportJob
   end
 
   def generate_pdf
-    p 'generating pdf'
+    puts 'generating pdf'
 
-    f = File.new("report_#{@filename}.pdf", 'wb')
+    f = File.new("#{@filename}.pdf", 'wb')
 
     info = {
       Title: "Monthly #{@report.creation_scope} report",

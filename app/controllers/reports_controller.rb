@@ -5,25 +5,30 @@ class ReportsController < ApplicationController
 
   # GET /reports or /reports.json
   def index
-    @reports = Report.all
+    @reports = Report.for_institution(current_user.institution)
+    authorize @reports
   end
 
   # GET /reports/1 or /reports/1.json
   def show
+    authorize @report
   end
 
   # GET /reports/new
   def new
     @report = Report.new
+    authorize @report
   end
 
   # GET /reports/1/edit
   def edit
+    authorize @report
   end
 
   # POST /reports or /reports.json
   def create
     @report = Report.new(report_params)
+    authorize @report
 
     respond_to do |format|
       if @report.save
@@ -39,6 +44,7 @@ class ReportsController < ApplicationController
 
   # PATCH/PUT /reports/1 or /reports/1.json
   def update
+    authorize @report
     respond_to do |format|
       if @report.update(report_params)
         format.html {
