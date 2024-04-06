@@ -147,7 +147,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_05_092546) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "code", default: "ra5NsXvKj9kig1njBCIO"
+    t.string "code", default: "LR9dWXG7Q0jYft6NsiZq"
   end
 
   create_table "reports", force: :cascade do |t|

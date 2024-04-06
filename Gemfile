@@ -84,6 +84,9 @@ gem 'carrierwave'
 # Background workers
 gem 'sidekiq'
 
+# PDF generation
+gem 'prawn'
+
 # Generating fake data. Usually useful only on :development and :test group, but I need it to seed the prod data easily.
 gem "faker"
 

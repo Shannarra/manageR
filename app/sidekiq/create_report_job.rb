@@ -5,13 +5,15 @@ class CreateReportJob
     @report = report
     @report.update!(state: :in_progress)
 
-    @filename = "#{@report.created_at.strftime('%d %B %Y')}_#{@report.name}_#{@report.creation_scope}-#{@report.by.name}"
+    @report_date = @report.created_at.strftime('%d %B %Y')
+    @filename = "#{@report_date}_#{@report.name}_#{@report.creation_scope}-#{@report.by.name}"
 
-    info = report_info
+    generate_report_info!
+
     file = case report.format
-           when 'pdf' then generate_pdf
-           when 'json' then generate_json
-           when 'csv' then generate_csv
+           when 'pdf' then GeneratePdfReportJob.new.perform(report: report, filename: @filename, info: @info)
+           when 'json' then generate_json # no need for separate job, it's literally a #to_json call.
+           when 'csv' then GenerateCsvReportJob.new.perform(report: report, filename: @filename, info: @info)
            else
              raise 'This should be unreachable'
            end
@@ -51,7 +53,22 @@ class CreateReportJob
     h
   end
 
-  def report_info
+  def attendances_info(institution)
+    h = Hash.new
+
+    Attendance.monthly.where(teacher: institution.users).each do |attendace|
+      h[attendace.created_at] = {
+        'Teacher': attendace.teacher.name,
+        'For Class': attendace.i_class.name,
+        'Student': attendace.student.name,
+        'Attending?': attendace.attendance_type,
+      }
+    end
+
+    h
+  end
+
+  def generate_report_info!
     @info = Hash.new
 
     institution = @report.institution
@@ -63,41 +80,12 @@ class CreateReportJob
     } if @report.institution?
 
     @info[:classes] = classes_info(institution) if Report.creation_scopes[@report.creation_scope] > 1
+
+    # All reports will contain basic information, regardless
+    # of the scope. This includes subjects, overall attendances,
+    # exams/grades for the institution, etc.
     @info[:subjects] = subjects_info(institution)
-  end
-
-  def generate_csv
-    p 'generating csv'
-
-    f = File.new("report_#{@filename}.csv", 'w')
-
-    report_csv = CSV.generate do |data|
-      if @report.institution?
-        data << ['Institution Info']
-        data << [" ", @info[:institution].keys].flatten
-        data << [" ", @info[:institution].values].flatten
-        data << []
-      end
-
-      if Report.creation_scopes[@report.creation_scope] > 1
-        data << ['Classes Info']
-        @info[:classes].each do |key, vals|
-          data << [" ", key]
-          data << [" ", " ", *vals.keys]
-          data << [" ", " ", *vals.values]
-        end
-        data << []
-      end
-      data << ['Subjects Info', ' ', @info[:subjects].first.last.keys].flatten
-      @info[:subjects].each do |key, vals|
-        data << [" ", key]
-        data << [" ", " ", vals.values].flatten
-      end
-    end
-
-    f.write(report_csv)
-
-    f
+    @info[:attendances] = attendances_info(institution)
   end
 
   def generate_json
@@ -105,14 +93,8 @@ class CreateReportJob
 
     f = File.new("report_#{@filename}.json", 'w')
 
-    f.write(@info.to_json)
+    f.write({}.merge("#{@report.institution.name}": @info).to_json)
 
     f
-  end
-
-  def generate_pdf
-    p 'generating pdf'
-
-    f = File.new("report_#{@filename}.pdf", 'w')
   end
 end

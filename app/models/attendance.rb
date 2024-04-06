@@ -19,4 +19,6 @@ class Attendance < ApplicationRecord
   scope :daily, -> { where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
   scope :per_class, -> { daily.joins(:i_class).group_by {|att| att.i_class_id } }
   scope :for_institution, ->(institution) { daily.joins(:i_class).where(i_class: IClass.for(institution)) }
+  scope :monthly, -> { where(created_at: 1.months.ago..Date.today) }
+  scope :yearly, -> { where(created_at: 1.years.ago..Date.today) }
 end
