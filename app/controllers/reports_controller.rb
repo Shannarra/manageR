@@ -10,11 +10,7 @@ class ReportsController < ApplicationController
   end
 
   def download
-    file = File.open("#{@report.name}.#{@report.format}", 'wb')
-    file.write(File.read(@report.file.path))
-
     send_file @report.file.path, type: "application/#{@report.format}"
-    FileUtils.rm("#{@report.name}.#{@report.format}")
   end
 
   # GET /reports/1 or /reports/1.json
