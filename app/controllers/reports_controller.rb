@@ -10,7 +10,9 @@ class ReportsController < ApplicationController
   end
 
   def download
-    send_file File.join('public', @report.file.url)
+    file = File.join(Rails.root, 'public', @report.file.to_s)
+
+    send_file file, type: "application/#{@report.format}"
   end
 
   # GET /reports/1 or /reports/1.json
