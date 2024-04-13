@@ -32,11 +32,7 @@ Rails.application.routes.draw do
     member do
       get :show
 
-      resources :reports, path: 'reports', as: 'reports', param: :report_id, only: %i[index new create] do
-        member do
-          get :download
-        end
-      end
+      resources :reports, path: 'reports', as: 'reports', param: :report_id, only: %i[index new create]
 
       resources :i_classes, path: 'classes', as: 'classes', param: :class_name do
         collection do

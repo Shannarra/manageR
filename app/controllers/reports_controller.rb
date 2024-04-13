@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: %i[ show edit update destroy download]
+  before_action :set_report, only: %i[ show edit update destroy]
 
   before_action :sanitize_params
 
@@ -7,10 +7,6 @@ class ReportsController < ApplicationController
   def index
     @reports = Report.for_institution(current_user.institution)
     authorize @reports
-  end
-
-  def download
-    send_file @report.file.url
   end
 
   # GET /reports/1 or /reports/1.json
