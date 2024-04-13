@@ -19,5 +19,9 @@ This is a list of features left for future development:
  They encapsulate all data for the given time span in the requested format.
 5. Multitenancy
  Incorporate multitenancy on the project, allowing complete separation of institutions and their data.
+6. Data tracking and analysis
+ Incorporate a data tracking and monitoring tool such as DataDog, NewRelic, etc. to ensure stability in higher environments
+7. Error tracking and handling
+ Incorporate Sentry or HoneyBadger as part of the system to catch and handle errors in higher environments without service interruptions.
 
 All aforementioned points are NOT chronological and will be tackled according to their priority, which will be set after discussions with users and stakeholders.
