@@ -13,6 +13,6 @@ class Institution < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    %w[users]
+    %w[users i_classes]
   end
 end

@@ -12,9 +12,14 @@ ActiveAdmin.register Institution do
     id_column
     column :name
     column :location
+    column :code
 
     column :users_count do |i|
       i.users.count
+    end
+
+    column :classes_count do |i|
+      i.i_classes.count
     end
   end
 
@@ -34,9 +39,14 @@ ActiveAdmin.register Institution do
     column :id
     column :name
     column :location
+    column :code
 
     column :users_count do |i|
       i.users.count
+    end
+
+    column :classes_count do |i|
+      i.i_classes.count
     end
   end
 end

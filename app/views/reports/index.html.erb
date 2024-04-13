@@ -28,7 +28,8 @@
       <% if !report.completed? %>
       <td><%= report.state %></td>
       <% else %>
-      <td><%= link_to report.state, report.file.url %></td>
+       <!-- report.file.url --> 
+      <td><%= link_to report.state, download_report_url(report_id: report) %></td>
       <% end %>
     </tr>
     <% end %>

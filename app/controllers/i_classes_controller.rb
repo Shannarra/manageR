@@ -91,6 +91,6 @@ class IClassesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def i_class_params
-      params.require(:i_class).permit(:name, :year, :description, :institution_name)
+      params.require(:i_class).permit(:name, :year, :description, :institution_name, :institution_id)
     end
 end

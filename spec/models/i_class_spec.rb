@@ -25,6 +25,23 @@ RSpec.describe IClass, type: :model do
         end
       end
     end
+
+    context 'if an IClass with the same name' do
+      let(:institution) { create(:institution) }
+      let(:i_class) { build(:i_class, institution: institution) }
+
+      it 'exists in the same institution' do
+        i_class.save!
+
+        expect {
+          IClass.create(name: i_class.name, institution: institution, year: i_class.year)
+        }.not_to change { IClass.count }
+
+        expect {
+          IClass.create!(name: i_class.name, institution: institution, year: i_class.year)
+        }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
   end
 
   describe 'scope' do
