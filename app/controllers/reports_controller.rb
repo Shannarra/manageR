@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
   end
 
   def download
-    send_file @report.file.path, type: "application/#{@report.format}"
+    send_file @report.file.url
   end
 
   # GET /reports/1 or /reports/1.json
