@@ -121,7 +121,7 @@ class AttendancesController < ApplicationController
       ).count > 0 # nonzero? returns a number, we'd need a boolean
   end
 
-  # POST /attendances or /attendances.json
+  # POST /attendances
   def create
     @attendance = Attendance.new(attendance_params)
 

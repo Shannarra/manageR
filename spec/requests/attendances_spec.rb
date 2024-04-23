@@ -64,7 +64,7 @@ RSpec.describe "/attendances", type: :request do
       it 'is handled correctly' do
         expect(Attendance.count).to eq 1
         # we have an attendance
-        # so when we try creating new one force
+        # so when we try creating new one for
         # the same student and class we should
         # not be able to do so
         expect {

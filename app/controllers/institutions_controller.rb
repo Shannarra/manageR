@@ -31,7 +31,7 @@ class InstitutionsController < ApplicationController
   end
 
   def set_institution
-    @institution = Institution.find_by_name(params[:institution_name])
+    @institution = Institution.find_by_name(params[:institution_name]) || current_user.institution
   rescue ActiveRecord::RecordNotFound
     respond_to do |format|
       format.html { redirect_to root_url, alert: 'Institution does not exist or you don\'t have access.' }
