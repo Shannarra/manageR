@@ -1,5 +1,5 @@
 # Start a new stage for the final image
-FROM ruby:3.1.0-alpine
+FROM ruby:3.3.1-alpine
 
 # Set environment variables
 ENV RAILS_ENV=production \
