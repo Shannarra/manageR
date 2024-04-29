@@ -42,21 +42,31 @@ Docker Compose version v2.20.2
 ```
 
 ## Development setup
-> Please, make sure that you have turned your postgresql service off or you will be greeted with an error message saying that port 5432 is taken.
-You can do that by running the command `sudo systemctl stop postgresql`
+###### Please, make sure that you have turned your postgresql service off or you will be greeted with an error message saying that port 5432 is taken.
+###### You can do that by running the command `sudo systemctl stop postgresql`
 
 You can just run the [startup.sh](https://github.com/Shannarra/rails7template/edit/master/startup.sh) script:
 ```console
 sh ./startup.sh --run
 ```
+
 This will bootstrap the application with sample data and profiles with different authorizations. Please, note that __*Registering endpoints are disabled intentionally*__ (see [Usage](#Usage))
 
+> Since this operation will seed the database with several thousand items and their relations, the initial setup can be slow, but seeding will provide useful feedback in the console. 
+
+
 ## Usage
+Once the app has been set up you can just run it via one of the following commands:
 #### Running the app
 ```console
 docker compose up --build
 ```
 Then just navigate to http://localhost:3000
+
+### First time logging in
+When logging in for the first time, please read the  [first time logging in docs](./docs/users/first_time_login.md) if you are confused on how to use the system.
+
+I would also suggest you go through the [entire documentation folder](./docs/) if you want a crash course on how to use the system.
 
 #### Running the Rails console
 When the app is already running with `docker-compose` up, attach to the container:
@@ -71,8 +81,9 @@ docker compose run --rm web bin/rails c
 
 #### Running tests
 ```console
-docker compose run --rm web bin/rspec
+docker compose run --rm web rails c
 ```
+
 
 #### Updating gems
 ```console
@@ -84,7 +95,6 @@ docker compose up --build
 ```console
 docker build -f production.Dockerfile .
 ```
-
 
 ## Deployment
 This app can be hosted wherever Ruby is supported and PostgreSQL databases can be provisioned.
