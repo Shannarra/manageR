@@ -1,6 +1,6 @@
 # First time logging in manageR
 
-The first time you log in, you will be asked to provide the security code of your institution. 
+The first time you log in, you will be asked to provide the security code of your institution.
 It consists of 20-digit alphanumeric string that the institution provides to the users. The code is different for each institution.
 
 Let's say you want to log in as the admin to the system, you can do that by navigating to http://localhost:3000/users/sign_in and providing the following credentials:

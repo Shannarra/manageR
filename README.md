@@ -52,8 +52,23 @@ sh ./startup.sh --run
 
 This will bootstrap the application with sample data and profiles with different authorizations. Please, note that __*Registering endpoints are disabled intentionally*__ (see [Usage](#Usage))
 
-> Since this operation will seed the database with several thousand items and their relations, the initial setup can be slow, but seeding will provide useful feedback in the console. 
+> Since this operation will seed the database with several thousand items and their relations, the initial setup can be slow, but seeding will provide useful feedback in the console.
 
+Alternatively, if you can't run the shell script, you can bootstrap the application yourself by running the following few commands:
+
+```sh
+# make sure the binaries of the project have the privileges to work as expected
+chmod u+x -R ./bin/*
+
+# copy/rename the environment variables file
+cp .env.example .env
+
+# build the initial containers
+docker compose build
+
+# setup the database, including migrations and seeding
+docker compose run --rm web rails db:setup
+```
 
 ## Usage
 Once the app has been set up you can just run it via one of the following commands:
