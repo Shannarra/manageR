@@ -48,6 +48,14 @@ When the report is done, it's state will automatically be changed to `completed`
 
 Report files will be kept for either limited or indefinite amount of time, depending on the settings and contract the institution has with the system (see [future development plans](./future_development.md) for more info).
 
+## Generate a report locally
+If you don't want to setup the crontab that runs the reports generation job, you can always run them locally via the following command:
+
+```sh
+docker compose run --rm web rake reports:run
+```
+This command will automatically run the report generation background worker on the spot for all newly requested reports.
+
 ## Access
 All access to subjects and the information, constraint to them are subject to the rules described in the [authorization](./users/authorization.md) document.
 
